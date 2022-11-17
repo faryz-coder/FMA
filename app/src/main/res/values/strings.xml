@@ -46,4 +46,7 @@
     <string name="admin_btn">Admin</string>
     <string name="canteen_staff_btn">Canteen Staff</string>
     <string name="students_parents_btn">Students / Parents</string>
+    <string name="log_in_btn">Log In</string>
+    <string name="admin_id_title">ADMIN ID :</string>
+    <string name="email_title">EMAIL :</string>
 </resources>
