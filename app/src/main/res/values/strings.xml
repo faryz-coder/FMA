@@ -49,4 +49,8 @@
     <string name="log_in_btn">Log In</string>
     <string name="admin_id_title">ADMIN ID :</string>
     <string name="email_title">EMAIL :</string>
+    <string name="add_canteen_btn_title">Add Canteen</string>
+    <string name="view_canteen_btn_title">View Canteen</string>
+    <string name="add_student_btn_title">Add Student</string>
+    <string name="view_student_btn_title">View Student</string>
 </resources>
