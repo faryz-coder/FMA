@@ -53,4 +53,5 @@
     <string name="view_canteen_btn_title">View Canteen</string>
     <string name="add_student_btn_title">Add Student</string>
     <string name="view_student_btn_title">View Student</string>
+    <string name="submit_btn">Submit</string>
 </resources>
