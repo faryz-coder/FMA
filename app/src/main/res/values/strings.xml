@@ -54,4 +54,6 @@
     <string name="add_student_btn_title">Add Student</string>
     <string name="view_student_btn_title">View Student</string>
     <string name="submit_btn">Submit</string>
+    <string name="student_name_title">Student Name</string>
+    <string name="student_id_title">Student ID</string>
 </resources>
