@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/admin_graph"
+    app:startDestination="@id/adminMenuFragment">
+
+    <fragment
+        android:id="@+id/adminMenuFragment"
+        android:name="com.bmit.fma.admin.AdminMenuFragment"
+        android:label="AdminMenuFragment" >
+        <action
+            android:id="@+id/action_adminMenuFragment_to_adminAddStudentFragment"
+            app:destination="@id/adminAddStudentFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_adminAddStaffFragment"
+            app:destination="@id/adminAddStaffFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_adminViewStaffFragment"
+            app:destination="@id/adminViewStaffFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminAddStudentFragment"
+        android:name="com.bmit.fma.admin.AdminAddStudentFragment"
+        android:label="AdminAddStudentFragment" />
+    <fragment
+        android:id="@+id/adminAddStaffFragment"
+        android:name="com.bmit.fma.admin.AdminAddStaffFragment"
+        android:label="AdminAddStuffFragment" />
+    <fragment
+        android:id="@+id/adminViewStaffFragment"
+        android:name="com.bmit.fma.admin.AdminViewStaffFragment"
+        android:label="AdminViewStaffFragment" />
+</navigation>
