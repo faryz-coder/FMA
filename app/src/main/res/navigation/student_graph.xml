@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_graph"
+    app:startDestination="@id/studentMenuFragment">
+
+    <fragment
+        android:id="@+id/studentMenuFragment"
+        android:name="com.bmit.fma.student.StudentMenuFragment"
+        android:label="StudentMenuFragment"
+        tools:layout="@layout/fragment_student_menu">
+        <action
+            android:id="@+id/action_studentMenuFragment_to_studentOrderMenuFragment"
+            app:destination="@id/studentOrderMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentOrderMenuFragment"
+        android:name="com.bmit.fma.student.StudentOrderMenuFragment"
+        android:label="StudentOrderMenuFragment"
+        tools:layout="@layout/fragment_student_order_menu"/>
+</navigation>
