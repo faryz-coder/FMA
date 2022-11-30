@@ -18,5 +18,15 @@
         android:id="@+id/studentOrderMenuFragment"
         android:name="com.bmit.fma.student.StudentOrderMenuFragment"
         android:label="StudentOrderMenuFragment"
-        tools:layout="@layout/fragment_student_order_menu"/>
+        tools:layout="@layout/fragment_student_order_menu">
+        <action
+            android:id="@+id/action_studentOrderMenuFragment_to_studentOrderReviewFragment"
+            app:destination="@id/studentOrderReviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentOrderReviewFragment"
+        android:name="com.bmit.fma.student.StudentOrderReviewFragment"
+        android:label="StudentOrderReviewFragment"
+        tools:layout="@layout/fragment_student_order_review" />
+
 </navigation>

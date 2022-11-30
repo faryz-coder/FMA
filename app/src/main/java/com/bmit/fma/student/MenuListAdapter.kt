@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bmit.fma.R
 import android.os.Handler
 import android.os.Looper
+import androidx.constraintlayout.widget.ConstraintLayout
 import java.util.concurrent.Executors
 
-class MenuListAdapter(private val menuList: MutableList<ListMenu>) : RecyclerView.Adapter<MenuListAdapter.ViewHolder>() {
+class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interfaceListener: InterfaceListener) : RecyclerView.Adapter<MenuListAdapter.ViewHolder>() {
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
         val foodName : TextView = itemView.findViewById(R.id.itemName)
         val price : TextView = itemView.findViewById(R.id.itemPrice)
         val itemImage : ImageView = itemView.findViewById(R.id.itemImage)
+        val itemBox : ConstraintLayout = itemView.findViewById(R.id.itemLayout)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +46,11 @@ class MenuListAdapter(private val menuList: MutableList<ListMenu>) : RecyclerVie
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
+        }
+
+        // click item
+        holder.itemBox.setOnClickListener {
+            interfaceListener.onItemClick(listMenu.itemId, holder.itemBox)
         }
     }
 
