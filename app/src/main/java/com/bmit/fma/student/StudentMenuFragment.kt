@@ -41,7 +41,7 @@ class StudentMenuFragment: Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             binding.placeOrderBtn.id -> {findNavController().navigate(R.id.action_studentMenuFragment_to_studentOrderMenuFragment)}
-            binding.viewOrderBtn.id -> {}
+            binding.viewOrderBtn.id -> {findNavController().navigate(R.id.action_studentMenuFragment_to_studentViewOrderFragment)}
             binding.historyBtn.id -> {}
         }
     }
