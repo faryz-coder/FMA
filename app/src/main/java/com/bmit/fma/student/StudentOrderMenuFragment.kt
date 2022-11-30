@@ -56,7 +56,7 @@ class StudentOrderMenuFragment: Fragment(), InterfaceListener {
         )
 
         binding.foodCornerRecyclerView.apply {
-            layoutManager = GridLayoutManager(this@StudentOrderMenuFragment.context, 3)
+            layoutManager = GridLayoutManager(this@StudentOrderMenuFragment.context, 2)
             adapter = MenuListAdapter(menuList, this@StudentOrderMenuFragment)
         }
 

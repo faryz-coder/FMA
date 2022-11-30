@@ -14,8 +14,11 @@
             android:id="@+id/action_studentMenuFragment_to_studentOrderMenuFragment"
             app:destination="@id/studentOrderMenuFragment" />
         <action
-            android:id="@+id/action_studentMenuFragment_to_studentViewOrderFragment"
-            app:destination="@id/studentViewOrderFragment" />
+            android:id="@+id/action_studentMenuFragment_to_studentOrderReviewFragment"
+            app:destination="@id/studentOrderReviewFragment" />
+        <action
+            android:id="@+id/action_studentMenuFragment_to_studentOrderHistoryFragment"
+            app:destination="@id/studentOrderHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentOrderMenuFragment"
@@ -32,9 +35,9 @@
         android:label="StudentOrderReviewFragment"
         tools:layout="@layout/fragment_student_order_review" />
     <fragment
-        android:id="@+id/studentViewOrderFragment"
-        android:name="com.bmit.fma.student.StudentViewOrderFragment"
-        android:label="StudentViewOrderFragment"
-        tools:layout="@layout/fragment_student_view_order"/>
+        android:id="@+id/studentOrderHistoryFragment"
+        android:name="com.bmit.fma.student.StudentOrderHistoryFragment"
+        android:label="StudentOrderHistoryFragment"
+        tools:layout="@layout/fragment_student_order_history"/>
 
 </navigation>

@@ -62,4 +62,6 @@
     <string name="submit_btn">Submit</string>
     <string name="student_name_title">Student Name</string>
     <string name="student_id_title">Student ID</string>
+    <string name="total_calories_intake">"Total Calories Intake: "</string>
+    <string name="total">"Total : RM "</string>
 </resources>

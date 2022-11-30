@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.bmit.fma.databinding.FragmentStudentViewOrderBinding
+import androidx.lifecycle.ViewModelProvider
+import com.bmit.fma.databinding.FragmentStudentOrderHistoryBinding
 
-class StudentViewOrderFragment: Fragment() {
-    private var _binding: FragmentStudentViewOrderBinding? = null
+class StudentOrderHistoryFragment: Fragment() {
+    private var _binding: FragmentStudentOrderHistoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionViewModel: SessionViewModel
 
@@ -17,7 +18,9 @@ class StudentViewOrderFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStudentViewOrderBinding.inflate(inflater, container, false)
+        _binding = FragmentStudentOrderHistoryBinding.inflate(inflater, container, false)
+        sessionViewModel = ViewModelProvider(requireActivity())[SessionViewModel::class.java]
+
         return binding.root
     }
 

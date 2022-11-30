@@ -7,5 +7,6 @@ data class ListMenu (
     val calories: String,
     val status: String,
     val type: String,
-    val itemId: String
+    val itemId: String,
+    val quantity: String = "0"
 )
