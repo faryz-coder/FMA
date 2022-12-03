@@ -19,7 +19,7 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.FMA">
             <intent-filter>
-<!--                                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -32,7 +32,7 @@
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />-->
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -41,7 +41,7 @@
             android:name="com.bmit.fma.AdminActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

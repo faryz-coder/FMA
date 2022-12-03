@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bmit.fma.R
@@ -31,7 +32,16 @@ class LoginSelectionFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnAdmin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginSelectionFragment_to_loginUserFragment)
+            val bundle = bundleOf("type" to "admin")
+            findNavController().navigate(R.id.action_loginSelectionFragment_to_loginUserFragment, bundle)
+        }
+        binding.btnCanteen.setOnClickListener {
+            val bundle = bundleOf("type" to "canteen")
+            findNavController().navigate(R.id.action_loginSelectionFragment_to_loginUserFragment, bundle)
+        }
+        binding.btnStudent.setOnClickListener {
+            val bundle = bundleOf("type" to "student")
+            findNavController().navigate(R.id.action_loginSelectionFragment_to_loginUserFragment, bundle)
         }
     }
 

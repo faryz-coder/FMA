@@ -17,6 +17,7 @@ class LoginUserFragment: Fragment() {
     private var _binding: FragmentLoginUserBinding? = null
 
     private val binding get() = _binding!!
+    lateinit var type: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +25,14 @@ class LoginUserFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginUserBinding.inflate(inflater, container, false)
+        type = arguments?.getString("type").toString()
+
+        if (type == "student") {
+            binding.IdTitle.text = "STUDENT ID"
+        } else if (type == "canteen") {
+            binding.IdTitle.text = "STAFF ID"
+        }
+
         return binding.root
     }
 
@@ -31,7 +40,6 @@ class LoginUserFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginBtn.setOnClickListener {
-
             if (checkLogin()) {
                 saveLoginInfo()
                 openAdmin()
