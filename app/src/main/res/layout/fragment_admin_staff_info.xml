@@ -5,21 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24" />
-
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/submitStaffBtn"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdateStaff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/nameTitle"
@@ -63,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textEmailAddress" />
 
         <TextView
@@ -112,11 +107,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/submitStaffBtn"
-        android:layout_width="0dp"
+        android:id="@+id/btnUpdateStaff"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit_btn"
+        android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,5 +2,8 @@ package com.bmit.fma
 
 object FixNotation {
 
-    val LOG: String = "bomohIt"
+    const val LOG: String = "bomohIt"
+    const val STAFF: String = "staff"
+    const val STUDENT: String = "student"
+
 }

@@ -64,4 +64,8 @@
     <string name="student_id_title">Student ID</string>
     <string name="total_calories_intake">"Total Calories Intake: "</string>
     <string name="total">"Total : RM "</string>
+    <string name="name_double_dot">Name :</string>
+    <string name="email_double_dot">Email :</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 </resources>

@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_adminMenuFragment_to_adminViewStaffFragment"
             app:destination="@id/adminViewStaffFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_adminViewStudentFragment"
+            app:destination="@id/adminViewStudentFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminAddStudentFragment"
@@ -29,5 +32,29 @@
     <fragment
         android:id="@+id/adminViewStaffFragment"
         android:name="com.bmit.fma.admin.AdminViewStaffFragment"
-        android:label="AdminViewStaffFragment" />
+        android:label="AdminViewStaffFragment" >
+        <action
+            android:id="@+id/action_adminViewStaffFragment_to_adminStaffInfo"
+            app:destination="@id/adminStaffInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminStaffInfo"
+        android:name="com.bmit.fma.admin.AdminStaffInfo"
+        android:label="AdminStaffInfo" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminStudentInfo"
+        android:name="com.bmit.fma.admin.AdminStudentInfo"
+        android:label="AdminStudentInfo" />
+    <fragment
+        android:id="@+id/adminViewStudentFragment"
+        android:name="com.bmit.fma.admin.AdminViewStudentFragment"
+        android:label="AdminViewStudentFragment" >
+        <action
+            android:id="@+id/action_adminViewStudentFragment_to_adminStudentInfo"
+            app:destination="@id/adminStudentInfo" />
+    </fragment>
 </navigation>

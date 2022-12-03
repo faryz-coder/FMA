@@ -1,7 +1,6 @@
 package com.bmit.fma.admin
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,35 +9,37 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bmit.fma.FixNotation.LOG
+import com.bmit.fma.FixNotation
 import com.bmit.fma.R
-import com.bmit.fma.databinding.FragmentAdminViewStaffBinding
+import com.bmit.fma.databinding.FragmentAdminViewStudentBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class AdminViewStaffFragment : Fragment(), UserListener {
+class AdminViewStudentFragment : Fragment(), UserListener {
 
-    private var _binding: FragmentAdminViewStaffBinding? = null
+    private var _binding : FragmentAdminViewStudentBinding? = null
     private val binding get() = _binding!!
     private val db = Firebase.firestore
+    lateinit var myAdapter: UserListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAdminViewStaffBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminViewStudentBinding.inflate(inflater, container, false)
 
-        val listStaff = mutableListOf<UserList>()
+        val listStudent = mutableListOf<UserList>()
+        myAdapter = UserListAdapter(listStudent, this@AdminViewStudentFragment)
 
-        val doc = db.collection("Login").whereEqualTo("type", "staff")
+        val doc = db.collection("Login").whereEqualTo("type", "student")
         doc.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    Log.d(LOG, "document: ${document.documents}")
+                    Log.d(FixNotation.LOG, "document: ${document.documents}")
                     document.documents.forEach { profile ->
-                        Log.d(LOG, "document: ${profile["name"]}")
-                        listStaff.add(
+                        Log.d(FixNotation.LOG, "document: ${profile["name"]}")
+                        listStudent.add(
                             UserList(
                                 profile["name"].toString(),
                                 profile["email"].toString(),
@@ -46,13 +47,12 @@ class AdminViewStaffFragment : Fragment(), UserListener {
                             )
                         )
                     }
-                    binding.listStaffRecyclerView.apply {
-                        layoutManager = LinearLayoutManager(this@AdminViewStaffFragment.context)
-                        adapter = UserListAdapter(listStaff, this@AdminViewStaffFragment)
+                    binding.listStudentRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(this@AdminViewStudentFragment.context)
+                        adapter = myAdapter
                     }
                 }
             }
-
 
         return binding.root
     }
@@ -68,6 +68,6 @@ class AdminViewStaffFragment : Fragment(), UserListener {
 
     override fun selectUser(id: String) {
         val bundle = bundleOf("id" to id)
-        findNavController().navigate(R.id.action_adminViewStaffFragment_to_adminStaffInfo, bundle)
+        findNavController().navigate(R.id.action_adminViewStudentFragment_to_adminStudentInfo, bundle)
     }
 }
