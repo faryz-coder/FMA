@@ -49,11 +49,23 @@
     <string name="log_in_btn">Log In</string>
     <string name="admin_id_title">ADMIN ID :</string>
     <string name="email_title">EMAIL :</string>
+
     <string name="add_canteen_btn_title">Add Canteen</string>
     <string name="view_canteen_btn_title">View Canteen</string>
     <string name="add_student_btn_title">Add Student</string>
     <string name="view_student_btn_title">View Student</string>
+
+    <string name="place_order_btn_title">Place Order</string>
+    <string name="view_order_btn_title">View Order</string>
+    <string name="history_btn_title">History</string>
+
     <string name="submit_btn">Submit</string>
     <string name="student_name_title">Student Name</string>
     <string name="student_id_title">Student ID</string>
+    <string name="total_calories_intake">"Total Calories Intake: "</string>
+    <string name="total">"Total : RM "</string>
+    <string name="name_double_dot">Name :</string>
+    <string name="email_double_dot">Email :</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 </resources>

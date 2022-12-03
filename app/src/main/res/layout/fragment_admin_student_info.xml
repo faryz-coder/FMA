@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:enabled="false"
             android:hint="ex. ST0123123M2"
             android:inputType="textPersonName" />
 
@@ -58,13 +59,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/submitStudentBtn"
+        android:id="@+id/btnUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit_btn"
+        android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

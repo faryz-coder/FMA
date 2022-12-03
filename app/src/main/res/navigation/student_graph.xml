@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_graph"
+    app:startDestination="@id/studentMenuFragment">
+
+    <fragment
+        android:id="@+id/studentMenuFragment"
+        android:name="com.bmit.fma.student.StudentMenuFragment"
+        android:label="StudentMenuFragment"
+        tools:layout="@layout/fragment_student_menu">
+        <action
+            android:id="@+id/action_studentMenuFragment_to_studentOrderMenuFragment"
+            app:destination="@id/studentOrderMenuFragment" />
+        <action
+            android:id="@+id/action_studentMenuFragment_to_studentOrderReviewFragment"
+            app:destination="@id/studentOrderReviewFragment" />
+        <action
+            android:id="@+id/action_studentMenuFragment_to_studentOrderHistoryFragment"
+            app:destination="@id/studentOrderHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentOrderMenuFragment"
+        android:name="com.bmit.fma.student.StudentOrderMenuFragment"
+        android:label="StudentOrderMenuFragment"
+        tools:layout="@layout/fragment_student_order_menu">
+        <action
+            android:id="@+id/action_studentOrderMenuFragment_to_studentOrderReviewFragment"
+            app:destination="@id/studentOrderReviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentOrderReviewFragment"
+        android:name="com.bmit.fma.student.StudentOrderReviewFragment"
+        android:label="StudentOrderReviewFragment"
+        tools:layout="@layout/fragment_student_order_review" />
+    <fragment
+        android:id="@+id/studentOrderHistoryFragment"
+        android:name="com.bmit.fma.student.StudentOrderHistoryFragment"
+        android:label="StudentOrderHistoryFragment"
+        tools:layout="@layout/fragment_student_order_history"/>
+
+</navigation>

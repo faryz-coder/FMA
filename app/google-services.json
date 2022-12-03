@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "242498119194",
+    "project_id": "find-me-app-3a229",
+    "storage_bucket": "find-me-app-3a229.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242498119194:android:d124b07b763f253cb8d3a3",
+        "android_client_info": {
+          "package_name": "com.bmit.fma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242498119194-pmmf9fdtafnnr65vmrp1igcj0g7gnont.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoTm6PQxWo4YSBX2SIerUWtgd2chs0azs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242498119194-pmmf9fdtafnnr65vmrp1igcj0g7gnont.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

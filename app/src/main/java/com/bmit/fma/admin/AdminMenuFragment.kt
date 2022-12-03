@@ -48,6 +48,7 @@ class AdminMenuFragment : Fragment(), View.OnClickListener {
                 findNavController().navigate(R.id.action_adminMenuFragment_to_adminAddStudentFragment)
             }
             binding.viewStudentBtn.id -> {
+                findNavController().navigate(R.id.action_adminMenuFragment_to_adminViewStudentFragment)
             }
             binding.viewCanteenBtn.id -> {
                 findNavController().navigate(R.id.action_adminMenuFragment_to_adminViewStaffFragment)
