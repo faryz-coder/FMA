@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.FixNotation.STAFF
 import com.bmit.fma.databinding.FragmentAdminAddStaffBinding
@@ -37,13 +38,17 @@ class AdminAddStaffFragment : Fragment() {
 
         binding.submitStaffBtn.setOnClickListener {
             registerUser.registerStaff(
-                binding.inputStaffEmail.text.toString(),
-                binding.inputStaffName.text.toString(),
-                binding.inputHandler.text.toString(),
-                binding.inputAddress.text.toString(),
-                binding.inputPhoneNumber.text.toString(),
-                binding.inputStaffPassword.text.toString()
+                binding.inputStaffEmail.editText?.text.toString(),
+                binding.inputStaffName.editText?.text.toString(),
+                binding.inputHandler.editText?.text.toString(),
+                binding.inputAddress.editText?.text.toString(),
+                binding.inputPhoneNumber.editText?.text.toString(),
+                binding.inputStaffPassword.editText?.text.toString()
             )
+        }
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

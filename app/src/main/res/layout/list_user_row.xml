@@ -5,6 +5,7 @@
     android:id="@+id/userBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selection_outline"
     android:padding="10dp">
 
     <TextView

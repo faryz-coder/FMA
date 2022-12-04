@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bmit.fma.databinding.FragmentAdminAddStudentBinding
 import com.bmit.fma.firebaseUtils.RegisterUser
 
@@ -31,10 +32,14 @@ class AdminAddStudentFragment : Fragment() {
 
         binding.submitStudentBtn.setOnClickListener {
             registerUser.registerStudent(
-                binding.inputStudentId.text.toString(),
-                binding.inputStudentName.text.toString(),
-                binding.inputStudentPassword.text.toString()
+                binding.inputStudentId.editText?.text.toString(),
+                binding.inputStudentName.editText?.text.toString(),
+                binding.inputStudentPassword.editText?.text.toString()
             )
+        }
+
+        binding.backBtn5.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

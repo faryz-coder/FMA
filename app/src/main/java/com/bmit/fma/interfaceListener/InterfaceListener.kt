@@ -1,4 +1,4 @@
-package com.bmit.fma.student
+package com.bmit.fma.interfaceListener
 
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -8,5 +8,8 @@ interface InterfaceListener {
      */
     fun onItemClick(itemId: String, itemBox: ConstraintLayout) {}
 
-    fun onItemRemove(itemId: String){}
+    /**
+     * When user click delete button
+     */
+    fun onClickDelete(itemId: String){}
 }
