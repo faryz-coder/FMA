@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/canteen_graph"
+    app:startDestination="@id/canteenMenuFragment">
+
+    <fragment
+        android:id="@+id/canteenMenuFragment"
+        android:name="com.bmit.fma.canteen.CanteenMenuFragment"
+        android:label="CanteenMenuFragment"
+        tools:layout="@layout/fragment_canteen_menu">
+        <action
+            android:id="@+id/action_canteenMenuFragment_to_canteenAddItemFragment"
+            app:destination="@id/canteenAddItemFragment" />
+        <action
+            android:id="@+id/action_canteenMenuFragment_to_canteenViewItemFragment"
+            app:destination="@id/canteenViewItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/canteenAddItemFragment"
+        android:name="com.bmit.fma.canteen.CanteenAddItemFragment"
+        android:label="CanteenAddItemFragment"
+        tools:layout="@layout/fragment_canteen_add_item"/>
+    <fragment
+        android:id="@+id/canteenViewItemFragment"
+        android:name="com.bmit.fma.canteen.CanteenViewItemFragment"
+        android:label="CanteenViewItemFragment"
+        tools:layout="@layout/fragment_canteen_view_item"/>
+</navigation>

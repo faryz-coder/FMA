@@ -59,6 +59,10 @@
     <string name="view_order_btn_title">View Order</string>
     <string name="history_btn_title">History</string>
 
+    <string name="add_item_btn_title">Add Item</string>
+    <string name="view_item_btn_title">View Item</string>
+    <string name="view_new_order_btn_title">View New Order</string>
+
     <string name="submit_btn">Submit</string>
     <string name="student_name_title">Student Name</string>
     <string name="student_id_title">Student ID</string>

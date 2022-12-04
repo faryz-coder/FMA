@@ -31,9 +31,9 @@ class AdminAddStudentFragment : Fragment() {
 
         binding.submitStudentBtn.setOnClickListener {
             registerUser.registerStudent(
-                binding.inputStudentId.text.toString(),
-                binding.inputStudentName.text.toString(),
-                binding.inputStudentPassword.text.toString()
+                binding.inputStudentId.editText?.text.toString(),
+                binding.inputStudentName.editText?.text.toString(),
+                binding.inputStudentPassword.editText?.text.toString()
             )
         }
     }

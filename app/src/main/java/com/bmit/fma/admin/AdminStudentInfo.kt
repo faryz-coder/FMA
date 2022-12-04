@@ -29,13 +29,13 @@ class AdminStudentInfo : Fragment() {
         _binding = FragmentAdminStudentInfoBinding.inflate(inflater, container, false)
 
         id = arguments?.getString("id").toString()
-        val doc = db.collection("Login").document(id.toString())
+        val doc = db.collection("Login").document(id)
         doc.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    binding.inputStudentId.setText(document.get("studentId").toString())
-                    binding.inputStudentName.setText(document.get("name").toString())
-                    binding.inputStudentPassword.setText(document.get("password").toString())
+                    binding.inputStudentId.editText?.setText(document.get("studentId").toString())
+                    binding.inputStudentName.editText?.setText(document.get("name").toString())
+                    binding.inputStudentPassword.editText?.setText(document.get("password").toString())
                     tempDoc = document
                 } else {
                     //no document

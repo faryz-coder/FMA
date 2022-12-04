@@ -14,7 +14,7 @@ import java.util.concurrent.Executors
 
 class OrderListAdapter(private val orderList: MutableList<ListMenu>, studentOrderReviewFragment: StudentOrderReviewFragment) : RecyclerView.Adapter<OrderListAdapter.ViewHolder>() {
     class ViewHolder (itemview: View): RecyclerView.ViewHolder(itemview){
-        val orderNo : TextView = itemView.findViewById(R.id.orderNo)
+        val orderNo : TextView = itemView.findViewById(R.id.itemNo)
         val orderName : TextView = itemview.findViewById(R.id.orderName)
         val orderPrice : TextView = itemview.findViewById(R.id.orderPrice)
         val orderQuantity : TextView = itemView.findViewById(R.id.orderQuantity)
