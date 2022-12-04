@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bmit.fma.R
 import com.bmit.fma.interfaceListener.InterfaceListener
@@ -22,6 +23,7 @@ class ListItemAdapter(private val listItem: MutableList<ItemList>, private val o
         val price: TextView = itemView.findViewById(R.id.itemPrice)
         val image: ImageView = itemView.findViewById(R.id.itemImage)
         val delete: Button = itemView.findViewById(R.id.btnDelete)
+        val itemBox: ConstraintLayout = itemView.findViewById(R.id.itemBox)
 
     }
 
@@ -56,6 +58,10 @@ class ListItemAdapter(private val listItem: MutableList<ItemList>, private val o
 
         holder.delete.setOnClickListener {
             onClickInterface.onClickDelete(item.id)
+        }
+
+        holder.itemBox.setOnClickListener {
+            onClickInterface.onItemClick(item.id, holder.itemBox)
         }
     }
 

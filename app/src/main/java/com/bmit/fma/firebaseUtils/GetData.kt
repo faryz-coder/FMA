@@ -38,7 +38,14 @@ class GetData {
                 .addOnFailureListener {
                     Log.d(LOG, "Failed to retrieve item")
                 }
+    }
 
-
+    fun getItemInfo(itemId: String, callback: ItemCallback) {
+        val doc = db.collection("canteen").document("menu").collection("list").document(itemId)
+        doc.get()
+            .addOnSuccessListener { item ->
+                callback.onItemInfo(item)
+                Log.d(LOG, "info retrieved")
+            }
     }
 }

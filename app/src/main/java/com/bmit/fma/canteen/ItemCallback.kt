@@ -1,5 +1,7 @@
 package com.bmit.fma.canteen
 
+import com.google.firebase.firestore.DocumentSnapshot
+
 interface ItemCallback {
 
     /**
@@ -19,6 +21,14 @@ interface ItemCallback {
      *  called when item failed to removed from db
      */
     fun removedFailed() {
+
+    }
+
+    fun onItemInfo(item: DocumentSnapshot) {
+
+    }
+
+    fun onItemUpdated() {
 
     }
 }

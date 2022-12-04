@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.helper.widget.Carousel.Adapter
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,6 +91,12 @@ class CanteenViewItemFragment : Fragment(), ItemCallback, InterfaceListener {
         binding.backBtn8.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    override fun onItemClick(itemId: String, itemBox: ConstraintLayout) {
+        super.onItemClick(itemId, itemBox)
+        val bundle = bundleOf("itemId" to itemId)
+        findNavController().navigate(R.id.action_canteenViewItemFragment_to_canteenItemInfoFragment, bundle)
     }
 
     override fun onDestroyView() {

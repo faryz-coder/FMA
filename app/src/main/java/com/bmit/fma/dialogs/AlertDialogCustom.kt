@@ -16,7 +16,7 @@ class AlertDialogCustom {
     private var activity: Activity
     private var sessionViewModel : SessionViewModel
 
-    constructor(myActivity: Activity, mySessionViewModel: SessionViewModel) {
+    constructor(myActivity: Activity, mySessionViewModel: SessionViewModel = SessionViewModel()) {
         activity = myActivity
         sessionViewModel = mySessionViewModel
     }
