@@ -40,8 +40,8 @@ class UploadData(loginViewModel: LoginViewModel, requireView: View) {
 
         // upload data
         db.collection("canteen")
-            .document(login.email)
-            .collection("menu")
+            .document("menu")
+            .collection("list")
             .add(data)
             .addOnSuccessListener { document ->
                 // upload image
@@ -66,8 +66,8 @@ class UploadData(loginViewModel: LoginViewModel, requireView: View) {
                         )
 
                         db.collection("canteen")
-                            .document(login.email)
-                            .collection("menu")
+                            .document("menu")
+                            .collection("list")
                             .document(document.id)
                             .set(data, SetOptions.merge())
                             .addOnSuccessListener {

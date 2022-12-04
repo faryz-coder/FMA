@@ -11,9 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bmit.fma.R
+import com.bmit.fma.interfaceListener.InterfaceListener
 import java.util.concurrent.Executors
 
-class ListItemAdapter(private val listItem: MutableList<ItemList>, canteenViewItemFragment: CanteenViewItemFragment) : RecyclerView.Adapter<ListItemAdapter.ViewHolder>() {
+class ListItemAdapter(private val listItem: MutableList<ItemList>, private val onClickInterface: InterfaceListener) : RecyclerView.Adapter<ListItemAdapter.ViewHolder>() {
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         val no: TextView = itemView.findViewById(R.id.itemNo)
         val name: TextView = itemView.findViewById(R.id.itemName)
@@ -54,7 +55,7 @@ class ListItemAdapter(private val listItem: MutableList<ItemList>, canteenViewIt
         }
 
         holder.delete.setOnClickListener {
-
+            onClickInterface.onClickDelete(item.id)
         }
     }
 

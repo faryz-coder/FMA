@@ -6,5 +6,6 @@ data class ItemList (
     val calories : String,
     val price : String,
     val status : String,
-    val type : String
+    val type : String,
+    val id : String
 )

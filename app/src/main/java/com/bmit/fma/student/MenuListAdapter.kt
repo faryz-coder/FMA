@@ -11,6 +11,7 @@ import com.bmit.fma.R
 import android.os.Handler
 import android.os.Looper
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bmit.fma.interfaceListener.InterfaceListener
 import java.util.concurrent.Executors
 
 class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interfaceListener: InterfaceListener) : RecyclerView.Adapter<MenuListAdapter.ViewHolder>() {
