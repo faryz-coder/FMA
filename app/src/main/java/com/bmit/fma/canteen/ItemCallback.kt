@@ -7,7 +7,7 @@ interface ItemCallback {
     /**
      * return with list of item in the db
      */
-    fun returnList(item: MutableList<ItemList>) {}
+    fun returnList(item: Collection<*>) {}
 
     /**
      * notified that item successfully removed

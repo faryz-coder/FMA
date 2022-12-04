@@ -1,26 +1,34 @@
 package com.bmit.fma.admin
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.R
+import com.bmit.fma.canteen.ItemCallback
 import com.bmit.fma.databinding.FragmentAdminViewStaffBinding
+import com.bmit.fma.firebaseUtils.GetData
+import com.bmit.fma.firebaseUtils.UpdateData
+import com.bmit.fma.interfaceListener.InterfaceListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class AdminViewStaffFragment : Fragment(), UserListener {
+class AdminViewStaffFragment : Fragment(), ItemCallback, InterfaceListener {
 
     private var _binding: FragmentAdminViewStaffBinding? = null
     private val binding get() = _binding!!
     private val db = Firebase.firestore
+    private val listStaff = mutableListOf<UserList>()
+    private val updateData = UpdateData()
+    private lateinit var userListAdapter : UserListAdapter
+    private val getData = GetData()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,33 +36,29 @@ class AdminViewStaffFragment : Fragment(), UserListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAdminViewStaffBinding.inflate(inflater, container, false)
+        userListAdapter = UserListAdapter(listStaff, this@AdminViewStaffFragment)
 
-        val listStaff = mutableListOf<UserList>()
+        binding.listStaffRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@AdminViewStaffFragment.context)
+            adapter = userListAdapter
+        }
 
-        val doc = db.collection("Login").whereEqualTo("type", "staff")
-        doc.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(LOG, "document: ${document.documents}")
-                    document.documents.forEach { profile ->
-                        Log.d(LOG, "document: ${profile["name"]}")
-                        listStaff.add(
-                            UserList(
-                                profile["name"].toString(),
-                                profile["email"].toString(),
-                                profile.id
-                            )
-                        )
-                    }
-                    binding.listStaffRecyclerView.apply {
-                        layoutManager = LinearLayoutManager(this@AdminViewStaffFragment.context)
-                        adapter = UserListAdapter(listStaff, this@AdminViewStaffFragment)
-                    }
-                }
-            }
-
-
+        getData.staffList(this)
         return binding.root
+    }
+
+    override fun returnList(item: Collection<*>) {
+        super.returnList(item)
+        listStaff.clear()
+        listStaff.addAll(item as Collection<UserList>)
+        userListAdapter.notifyDataSetChanged()
+
+    }
+
+    override fun itemRemoved(itemID: String) {
+        super.itemRemoved(itemID)
+        listStaff.removeIf { it.id == itemID }
+        userListAdapter.notifyDataSetChanged()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,8 +74,36 @@ class AdminViewStaffFragment : Fragment(), UserListener {
         _binding = null
     }
 
-    override fun selectUser(id: String) {
-        val bundle = bundleOf("id" to id)
+    override fun onItemClick(itemId: String, itemBox: ConstraintLayout) {
+        val bundle = bundleOf("id" to itemId)
         findNavController().navigate(R.id.action_adminViewStaffFragment_to_adminStaffInfo, bundle)
+    }
+
+    override fun onClickDelete(itemId: String) {
+        super.onClickDelete(itemId)
+        // show confirmation
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setTitle("Are you confirm: $itemId")
+                setPositiveButton(
+                    R.string.confirm,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User clicked OK button
+                        updateData.removeUser(itemId, this@AdminViewStaffFragment)
+                    })
+                setNegativeButton(R.string.cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User cancelled the dialog
+                    })
+            }
+
+            // Create the AlertDialog
+            builder.create()
+        }
+
+        alertDialog!!.show()
+
     }
 }

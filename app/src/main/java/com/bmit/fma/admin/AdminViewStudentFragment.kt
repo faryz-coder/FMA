@@ -1,26 +1,37 @@
 package com.bmit.fma.admin
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmit.fma.FixNotation
 import com.bmit.fma.R
+import com.bmit.fma.canteen.ItemCallback
+import com.bmit.fma.canteen.ItemList
 import com.bmit.fma.databinding.FragmentAdminViewStudentBinding
+import com.bmit.fma.firebaseUtils.GetData
+import com.bmit.fma.firebaseUtils.UpdateData
+import com.bmit.fma.interfaceListener.InterfaceListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class AdminViewStudentFragment : Fragment(), UserListener {
+class AdminViewStudentFragment : Fragment(), InterfaceListener, ItemCallback {
 
     private var _binding : FragmentAdminViewStudentBinding? = null
     private val binding get() = _binding!!
     private val db = Firebase.firestore
     lateinit var myAdapter: UserListAdapter
+    private val listStudent = mutableListOf<UserList>()
+    private val getData = GetData()
+    private val updateData = UpdateData()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,36 +40,22 @@ class AdminViewStudentFragment : Fragment(), UserListener {
     ): View? {
         _binding = FragmentAdminViewStudentBinding.inflate(inflater, container, false)
 
-        val listStudent = mutableListOf<UserList>()
         myAdapter = UserListAdapter(listStudent, this@AdminViewStudentFragment)
 
-        val doc = db.collection("Login").whereEqualTo("type", "student")
-        doc.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(FixNotation.LOG, "document: ${document.documents}")
-                    document.documents.forEach { profile ->
-                        Log.d(FixNotation.LOG, "document: ${profile["name"]}")
-                        listStudent.add(
-                            UserList(
-                                profile["name"].toString(),
-                                profile["email"].toString(),
-                                profile.id
-                            )
-                        )
-                    }
-                    binding.listStudentRecyclerView.apply {
-                        layoutManager = LinearLayoutManager(this@AdminViewStudentFragment.context)
-                        adapter = myAdapter
-                    }
-                }
-            }
-
+        binding.listStudentRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@AdminViewStudentFragment.context)
+            adapter = myAdapter
+        }
+        getData.studentList(this)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.backBtn6.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {
@@ -66,8 +63,50 @@ class AdminViewStudentFragment : Fragment(), UserListener {
         _binding = null
     }
 
-    override fun selectUser(id: String) {
-        val bundle = bundleOf("id" to id)
+    override fun returnList(item: Collection<*>) {
+        super.returnList(item)
+        listStudent.clear()
+        listStudent.addAll(item as Collection<UserList>)
+        myAdapter.notifyDataSetChanged()
+    }
+
+    override fun itemRemoved(itemID: String) {
+        super.itemRemoved(itemID)
+        listStudent.removeIf { it.id == itemID }
+        myAdapter.notifyDataSetChanged()
+    }
+
+    override fun onClickDelete(itemId: String) {
+        super.onClickDelete(itemId)
+        // show confirmation
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setTitle("Are you confirm: $itemId")
+                setPositiveButton(
+                    R.string.confirm,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User clicked OK button
+                        updateData.removeUser(itemId, this@AdminViewStudentFragment)
+                    })
+                setNegativeButton(R.string.cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User cancelled the dialog
+                    })
+            }
+
+            // Create the AlertDialog
+            builder.create()
+        }
+
+        alertDialog!!.show()
+
+    }
+
+    override fun onItemClick(itemId: String, itemBox: ConstraintLayout) {
+        super.onItemClick(itemId, itemBox)
+        val bundle = bundleOf("id" to itemId)
         findNavController().navigate(R.id.action_adminViewStudentFragment_to_adminStudentInfo, bundle)
     }
 }

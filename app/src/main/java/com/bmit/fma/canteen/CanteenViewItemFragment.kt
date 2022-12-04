@@ -45,10 +45,10 @@ class CanteenViewItemFragment : Fragment(), ItemCallback, InterfaceListener {
         return binding.root
     }
 
-    override fun returnList(item: MutableList<ItemList>) {
+    override fun returnList(item: Collection<*>) {
         super.returnList(item)
         listItem.clear()
-        listItem.addAll(item)
+        listItem.addAll(item as Collection<ItemList>)
         itemAdapter.notifyDataSetChanged()
     }
 

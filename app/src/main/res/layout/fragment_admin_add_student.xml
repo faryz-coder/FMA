@@ -96,13 +96,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:ems="10"
-            android:inputType="textPassword"
             android:minHeight="48dp"
             android:textSize="16sp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

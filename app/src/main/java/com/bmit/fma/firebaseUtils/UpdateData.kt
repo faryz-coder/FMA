@@ -2,6 +2,7 @@ package com.bmit.fma.firebaseUtils
 
 import android.net.Uri
 import android.util.Log
+import com.bmit.fma.FixNotation
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.canteen.ItemCallback
 import com.google.android.material.snackbar.Snackbar
@@ -19,7 +20,8 @@ class UpdateData {
         address: String,
         staffHandler: String,
         name: String,
-        phoneNo: String
+        phoneNo: String,
+        callback: ItemCallback
     ) {
         val data = hashMapOf(
             "name" to name,
@@ -30,6 +32,9 @@ class UpdateData {
 
         db.collection("Login").document(id)
             .set(data, SetOptions.merge())
+            .addOnSuccessListener {
+                callback.onItemUpdated()
+            }
     }
 
     fun removeItemData(itemId: String, callback: ItemCallback) {
@@ -56,6 +61,18 @@ class UpdateData {
             .addOnFailureListener {
                 callback.removedFailed()
                 Log.d(LOG, "Failed to delete item")
+            }
+    }
+
+    fun removeUser(id: String, callback: ItemCallback) {
+        db.collection("Login")
+            .document(id)
+            .delete()
+            .addOnSuccessListener {
+                callback.itemRemoved(id)
+            }
+            .addOnFailureListener {
+                callback.removedFailed()
             }
     }
 
@@ -88,6 +105,25 @@ class UpdateData {
                 } else {
                     uploadImage(itemId, imageUri, callback)
                 }
+            }
+    }
+
+    fun updateStudentInfo(itemId: String, studentId: String, name: String, password: String, callback: ItemCallback) {
+        val data = hashMapOf(
+            "studentId" to studentId,
+            "name" to name,
+            "type" to FixNotation.STUDENT,
+            "password" to password
+        )
+
+        db.collection("Login").document(itemId)
+            .set(data, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(LOG,"Student Added: \n $data")
+                callback.onItemUpdated()
+            }
+            .addOnFailureListener { e ->
+                Log.d(LOG,"Failed to Add Student")
             }
     }
 
