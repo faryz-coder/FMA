@@ -1,13 +1,12 @@
 package com.bmit.fma.firebaseUtils
 
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bmit.fma.FixNotation
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.admin.UserList
-import com.bmit.fma.admin.UserListAdapter
-import com.bmit.fma.canteen.ItemCallback
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.canteen.ItemList
+import com.bmit.fma.dialogs.ItemOrder
+import com.bmit.fma.student.ListMenu
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.Query.Direction
@@ -128,6 +127,71 @@ class GetData {
             }
             .addOnFailureListener {
                 Log.d(LOG, "Failed to retrieve info: $it")
+            }
+    }
+
+    fun getMenu(callback: ItemCallback, itemOrdered: MutableList<ItemOrder>)  {
+        val foodMenu = mutableListOf<ListMenu>()
+        val drinkMenu = mutableListOf<ListMenu>()
+        val snackMenu = mutableListOf<ListMenu>()
+
+        db.collection("canteen").document("menu").collection("list")
+            .orderBy("type", Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach {
+                    val type = it["type"].toString()
+                    val imageURL = it["imageUrl"].toString()
+                    val name = it["name"].toString()
+                    val price = it["price"].toString()
+                    val calories = it["calories"].toString()
+                    val status = it["status"].toString()
+                    val itemId = it.id
+
+                    var quantity = "0"
+                    val isExist = itemOrdered.filter { it.itemId == itemId }
+                    if (isExist.isNotEmpty()) {
+                        quantity = isExist.first().quantity
+                    }
+
+                    when (type) {
+                        "Food" -> foodMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
+                        "Drink" -> drinkMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
+                        "Snack" -> snackMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
+                    }
+                }
+                callback.returnMenu(foodMenu, drinkMenu, snackMenu)
+            }
+    }
+
+    fun getOrderedItem(itemOrdered: MutableList<ItemOrder>, callback: ItemCallback) {
+        val orderList = mutableListOf<ListMenu>()
+        var totalPrice = 0.0
+        var totalCal = 0
+
+        db.collection("canteen").document("menu").collection("list")
+            .orderBy("type", Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach {
+                    val type = it["type"].toString()
+                    val imageURL = it["imageUrl"].toString()
+                    val name = it["name"].toString()
+                    val price = it["price"].toString()
+                    val calories = it["calories"].toString()
+                    val status = it["status"].toString()
+                    val itemId = it.id
+
+                    val isExist = itemOrdered.filter { it.itemId == itemId }
+
+                    if (isExist.isNotEmpty()) {
+                        val quantity = isExist.first().quantity
+                        orderList.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
+                        totalPrice += price.toDouble() * quantity.toInt()
+                        totalCal += calories.toInt() * quantity.toInt()
+                    }
+                }
+                callback.returnOrderItemList(orderList, totalPrice, totalCal)
             }
     }
 }

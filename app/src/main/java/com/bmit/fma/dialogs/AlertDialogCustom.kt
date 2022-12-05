@@ -9,7 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bmit.fma.R
+import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.student.ListMenu
 import com.bmit.fma.student.SessionViewModel
+import com.bmit.fma.student.StudentOrderMenuFragment
 
 class AlertDialogCustom {
 
@@ -21,7 +24,12 @@ class AlertDialogCustom {
         sessionViewModel = mySessionViewModel
     }
 
-    fun showQuantitySelectionDialog(itemId: String, itemBox: ConstraintLayout) {
+    fun showQuantitySelectionDialog(
+        itemId: String,
+        itemBox: ConstraintLayout,
+        listMenu: ListMenu,
+        callback: ItemCallback
+    ) {
         var itemQuantity: TextView? = null
 
         val dialog = activity.let {
@@ -34,13 +42,20 @@ class AlertDialogCustom {
                 ) { dialog, id ->
                     Toast.makeText(activity, "Confirm", Toast.LENGTH_SHORT).show()
                     if (itemQuantity?.text.toString().toInt() > 0) {
-                        sessionViewModel.addItem(itemId, itemQuantity?.text.toString())
+                        sessionViewModel.addItem(
+                            itemId,
+                            itemQuantity?.text.toString(),
+                            listMenu
+                        )
                         d("sessionViewModel", "${sessionViewModel.getItemOrder()}")
                         itemBox.setBackgroundColor(Color.GRAY)
+                        callback.onItemUpdated()
                     } else {
                         sessionViewModel.removeItem(itemId)
                         d("sessionViewModel", "${sessionViewModel.getItemOrder()}")
                         itemBox.setBackgroundColor(Color.WHITE)
+                        callback.onItemUpdated()
+
                     }
                 }
                 .setNegativeButton(

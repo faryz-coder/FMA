@@ -1,5 +1,6 @@
-package com.bmit.fma.canteen
+package com.bmit.fma.interfaceListener
 
+import com.bmit.fma.student.ListMenu
 import com.google.firebase.firestore.DocumentSnapshot
 
 interface ItemCallback {
@@ -24,11 +25,23 @@ interface ItemCallback {
 
     }
 
+
     fun onItemInfo(item: DocumentSnapshot) {
 
     }
 
+    /**
+     * used when item successfully updated
+     */
     fun onItemUpdated() {
+
+    }
+
+    fun returnMenu(foodList: Collection<ListMenu>, drinkList: Collection<ListMenu>, snackList: Collection<ListMenu>) {
+
+    }
+
+    fun returnOrderItemList(item: Collection<*>, totalPrice: Double, totalCal: Int) {
 
     }
 }

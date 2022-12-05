@@ -1,14 +1,12 @@
 package com.bmit.fma.admin
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bmit.fma.FixNotation.LOG
-import com.bmit.fma.canteen.ItemCallback
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.databinding.FragmentAdminStaffInfoBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
@@ -16,7 +14,6 @@ import com.bmit.fma.utils.Validation
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 
 class AdminStaffInfo : Fragment(), ItemCallback {

@@ -4,12 +4,13 @@ import android.net.Uri
 import android.util.Log
 import com.bmit.fma.FixNotation
 import com.bmit.fma.FixNotation.LOG
-import com.bmit.fma.canteen.ItemCallback
-import com.google.android.material.snackbar.Snackbar
+import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.student.ListMenu
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.google.gson.Gson
 
 class UpdateData {
     private val db = Firebase.firestore
@@ -84,7 +85,8 @@ class UpdateData {
         price: String,
         type: String,
         status: String,
-        callback: ItemCallback) {
+        callback: ItemCallback
+    ) {
 
         val data = hashMapOf(
             "name" to name,
@@ -125,6 +127,36 @@ class UpdateData {
             .addOnFailureListener { e ->
                 Log.d(LOG,"Failed to Add Student")
             }
+    }
+
+    fun confirmPayment(
+        orderList: MutableList<ListMenu>,
+        total: Double?,
+        studentId: String,
+        callback: ItemCallback
+    ) {
+        val orderJson = Gson().toJson(orderList)
+//        val toList = Gson().fromJson(json, Array<ListMenu>::class.java)
+        val data = hashMapOf(
+            "order" to orderJson,
+            "status" to "order confirmed",
+            "total" to total
+        )
+        db.collection("canteen").document("order").collection("list")
+            .add(data)
+            .addOnSuccessListener {
+
+                db.collection("student").document(studentId).collection("order").document(it.id)
+                    .set(data)
+                    .addOnSuccessListener {
+                        Log.d(LOG, "Payment confirmed and order submit: $it")
+                        callback.onItemUpdated()
+                    }
+            }
+            .addOnFailureListener {
+                Log.d(LOG, "Failed to submit order: $it")
+            }
+
     }
 
     private fun uploadImage(itemId: String, imageUri: Uri?, callback: ItemCallback) {

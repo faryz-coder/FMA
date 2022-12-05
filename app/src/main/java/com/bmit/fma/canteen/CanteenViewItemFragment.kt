@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.helper.widget.Carousel.Adapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -17,7 +16,8 @@ import com.bmit.fma.databinding.FragmentCanteenViewItemBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
-import kotlinx.coroutines.NonCancellable.cancel
+import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.student.ListMenu
 
 class CanteenViewItemFragment : Fragment(), ItemCallback, InterfaceListener {
 
@@ -93,8 +93,8 @@ class CanteenViewItemFragment : Fragment(), ItemCallback, InterfaceListener {
         }
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout) {
-        super.onItemClick(itemId, itemBox)
+    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
+        super.onItemClick(itemId, itemBox, listMenu)
         val bundle = bundleOf("itemId" to itemId)
         findNavController().navigate(R.id.action_canteenViewItemFragment_to_canteenItemInfoFragment, bundle)
     }

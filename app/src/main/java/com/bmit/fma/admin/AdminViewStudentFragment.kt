@@ -3,7 +3,6 @@ package com.bmit.fma.admin
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bmit.fma.FixNotation
 import com.bmit.fma.R
-import com.bmit.fma.canteen.ItemCallback
-import com.bmit.fma.canteen.ItemList
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.databinding.FragmentAdminViewStudentBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
+import com.bmit.fma.student.ListMenu
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -104,8 +102,8 @@ class AdminViewStudentFragment : Fragment(), InterfaceListener, ItemCallback {
 
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout) {
-        super.onItemClick(itemId, itemBox)
+    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
+        super.onItemClick(itemId, itemBox, listMenu)
         val bundle = bundleOf("id" to itemId)
         findNavController().navigate(R.id.action_adminViewStudentFragment_to_adminStudentInfo, bundle)
     }

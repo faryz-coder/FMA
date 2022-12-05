@@ -1,6 +1,7 @@
 package com.bmit.fma.student
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interface
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listMenu = menuList[position]
         holder.foodName.text = listMenu.name
-        holder.price.text = listMenu.price
+        holder.price.text = "RM "+listMenu.price
 
         val handler = Handler(Looper.getMainLooper())
         val executor = Executors.newSingleThreadExecutor()
@@ -51,8 +52,11 @@ class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interface
 
         // click item
         holder.itemBox.setOnClickListener {
-            interfaceListener.onItemClick(listMenu.itemId, holder.itemBox)
+            interfaceListener.onItemClick(listMenu.itemId, holder.itemBox, listMenu)
         }
+
+        if (listMenu.quantity.toInt() > 0)
+            holder.itemBox.setBackgroundColor(Color.GRAY)
     }
 
     override fun getItemCount(): Int {

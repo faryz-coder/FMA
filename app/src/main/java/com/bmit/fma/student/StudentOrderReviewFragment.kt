@@ -10,69 +10,69 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmit.fma.R
 import com.bmit.fma.databinding.FragmentStudentOrderReviewBinding
+import com.bmit.fma.firebaseUtils.GetData
+import com.bmit.fma.firebaseUtils.UpdateData
+import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.viewmodel.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 
-class StudentOrderReviewFragment: Fragment() {
+class StudentOrderReviewFragment: Fragment(), ItemCallback {
 
     private var _binding: FragmentStudentOrderReviewBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionViewModel: SessionViewModel
+    private lateinit var loginViewModel: LoginViewModel
+    private val getData = GetData()
+    private val updateData = UpdateData()
+    private val orderList = mutableListOf<ListMenu>()
+    lateinit var orderListAdapter: OrderListAdapter
+    private var total: Double? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val orderList = mutableListOf<ListMenu>()
         _binding = FragmentStudentOrderReviewBinding.inflate(inflater, container, false)
         sessionViewModel = ViewModelProvider(requireActivity())[SessionViewModel::class.java]
-        d("StudentViewOrderFragment", "${sessionViewModel.getItemOrder()}" )
+        orderListAdapter = OrderListAdapter(orderList, this@StudentOrderReviewFragment)
+        loginViewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
 
-        orderList.add(
-            ListMenu(
-                imageURL = "https://rasamalaysia.com/wp-content/uploads/2007/01/nasi_lemak-1.jpg",
-                name = "Nasi Lemak",
-                price = "20.0",
-                calories = "10",
-                status = "true",
-                type = "food",
-                itemId = "1",
-                quantity = "2"
-            )
-        )
-        orderList.add(
-            ListMenu(
-                imageURL = "https://resepichenom.com/media/92631CD8-98DF-48A3-A396-46020FD88812.jpeg",
-                name = "Nasi Goreng Cina",
-                price = "20.0",
-                calories = "10",
-                status = "true",
-                type = "food",
-                itemId = "2",
-                quantity = "1"
-            )
-        )
+        d("StudentViewOrderFragment", "${sessionViewModel.getItemOrder()}" )
 
         binding.listOrderRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@StudentOrderReviewFragment.context)
-            adapter = OrderListAdapter(orderList, this@StudentOrderReviewFragment)
+            adapter = orderListAdapter
         }
 
-        var totalCal = 0
-        var totalPrice = 0.00
+        getData.getOrderedItem(sessionViewModel.getItemOrder(), this)
+        return binding.root
+    }
 
-        orderList.forEach {
-            totalCal += it.calories.toInt() * it.quantity.toInt()
-            totalPrice += it.price.toDouble() * it.quantity.toInt()
-        }
+    override fun returnOrderItemList(item: Collection<*>, totalPrice: Double, totalCal: Int) {
+        super.returnOrderItemList(item, totalPrice, totalCal)
+        orderList.clear()
+        orderList.addAll(item as Collection<ListMenu>)
 
+        orderListAdapter.notifyDataSetChanged()
         binding.totalCalories.text = getString(R.string.total_calories_intake) + totalCal.toString() + " Cal"
         binding.totalPrice.text = getString(R.string.total) + totalPrice
+        total = totalPrice
+    }
 
-        return binding.root
+    override fun onItemUpdated() {
+        super.onItemUpdated()
+        Snackbar.make(requireView(), "Payment Confirmed", Snackbar.LENGTH_SHORT).show()
+        sessionViewModel.clear()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnPay.setOnClickListener {
+
+            updateData.confirmPayment(orderList, total, loginViewModel.studentId, this)
+        }
 
     }
 

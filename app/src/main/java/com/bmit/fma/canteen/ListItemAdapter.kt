@@ -1,6 +1,7 @@
 package com.bmit.fma.canteen
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -63,6 +64,7 @@ class ListItemAdapter(private val listItem: MutableList<ItemList>, private val o
         holder.itemBox.setOnClickListener {
             onClickInterface.onItemClick(item.id, holder.itemBox)
         }
+
     }
 
     override fun getItemCount(): Int {

@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmit.fma.R
-import com.bmit.fma.canteen.ItemCallback
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.databinding.FragmentAdminViewStaffBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
+import com.bmit.fma.student.ListMenu
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -74,7 +75,7 @@ class AdminViewStaffFragment : Fragment(), ItemCallback, InterfaceListener {
         _binding = null
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout) {
+    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
         val bundle = bundleOf("id" to itemId)
         findNavController().navigate(R.id.action_adminViewStaffFragment_to_adminStaffInfo, bundle)
     }

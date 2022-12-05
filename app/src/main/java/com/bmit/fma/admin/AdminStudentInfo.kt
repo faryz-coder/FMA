@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bmit.fma.canteen.ItemCallback
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.databinding.FragmentAdminStudentInfoBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
