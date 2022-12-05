@@ -7,6 +7,8 @@ import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.canteen.ItemList
 import com.bmit.fma.dialogs.ItemOrder
 import com.bmit.fma.student.ListMenu
+import com.bmit.fma.student.ListOrder
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.Query.Direction
@@ -192,6 +194,25 @@ class GetData {
                     }
                 }
                 callback.returnOrderItemList(orderList, totalPrice, totalCal)
+            }
+    }
+
+    fun getOrderedHistory(callback: ItemCallback, studentId: String) {
+        val listHistory = mutableListOf<ListOrder>()
+
+        db.collection("student").document(studentId).collection("order")
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach { field ->
+                    listHistory.add(ListOrder(
+                        field["order"].toString(),
+                        field["status"].toString(),
+                        field["total"].toString(),
+                        field["date"] as Timestamp,
+                        field.id
+                    ))
+                }
+                callback.returnList(listHistory)
             }
     }
 }

@@ -65,6 +65,23 @@ class UpdateData {
             }
     }
 
+    fun removeOrder(id: String, studentId: String, callback: ItemCallback) {
+        val data = hashMapOf(
+            "status" to "canceled"
+        )
+        db.collection("student").document(studentId).collection("order").document(id)
+            .set(data, SetOptions.merge())
+            .addOnSuccessListener {
+                // delete from canteee
+                db.collection("canteen").document("order").collection("list").document(id)
+                    .set(data, SetOptions.merge())
+                    .addOnSuccessListener {
+                        // delete success
+                        callback.itemRemoved(id)
+                    }
+            }
+    }
+
     fun removeUser(id: String, callback: ItemCallback) {
         db.collection("Login")
             .document(id)
