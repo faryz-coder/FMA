@@ -36,6 +36,9 @@ class CanteenMenuFragment: Fragment() {
         binding.viewItemBtn.setOnClickListener {
             findNavController().navigate(R.id.action_canteenMenuFragment_to_canteenViewItemFragment)
         }
+        binding.viewNewOrderBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_canteenMenuFragment_to_canteenOrderFragment)
+        }
     }
 
     override fun onDestroyView() {

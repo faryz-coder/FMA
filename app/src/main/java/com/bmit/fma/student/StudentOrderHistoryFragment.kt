@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmit.fma.R
-import com.bmit.fma.databinding.FragmentStudentOrderHistoryBinding
+import com.bmit.fma.databinding.FragmentViewOrderHistoryBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
@@ -21,7 +21,7 @@ import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.viewmodel.LoginViewModel
 
 class StudentOrderHistoryFragment: Fragment(), InterfaceListener, ItemCallback {
-    private var _binding: FragmentStudentOrderHistoryBinding? = null
+    private var _binding: FragmentViewOrderHistoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionViewModel: SessionViewModel
     private lateinit var loginViewModel: LoginViewModel
@@ -36,7 +36,7 @@ class StudentOrderHistoryFragment: Fragment(), InterfaceListener, ItemCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStudentOrderHistoryBinding.inflate(inflater, container, false)
+        _binding = FragmentViewOrderHistoryBinding.inflate(inflater, container, false)
         sessionViewModel = ViewModelProvider(requireActivity())[SessionViewModel::class.java]
         loginViewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
         historyItemAdapter = HistoryItemAdapter(listHistory, this@StudentOrderHistoryFragment)

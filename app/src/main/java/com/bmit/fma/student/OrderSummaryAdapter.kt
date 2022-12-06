@@ -1,6 +1,5 @@
 package com.bmit.fma.student
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bmit.fma.FixNotation
 import com.bmit.fma.R
 
-class OrderSummaryAdapter(private val listOrder: Array<ListMenu>, context: Context?) : RecyclerView.Adapter<OrderSummaryAdapter.ViewHolder>() {
+class OrderSummaryAdapter(private val listOrder: MutableList<ListMenu>) : RecyclerView.Adapter<OrderSummaryAdapter.ViewHolder>() {
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name : TextView = itemView.findViewById(R.id.summaryName)
         val quantity: TextView = itemView.findViewById(R.id.summaryQuantity)

@@ -206,6 +206,7 @@ class GetData {
                 document.forEach { field ->
                     listHistory.add(ListOrder(
                         field["order"].toString(),
+                        field["studentId"].toString(),
                         field["status"].toString(),
                         field["total"].toString(),
                         field["date"] as Timestamp,
@@ -213,6 +214,44 @@ class GetData {
                     ))
                 }
                 callback.returnList(listHistory)
+            }
+    }
+
+    fun getOrderedList(callback: ItemCallback) {
+        val listOrder = mutableListOf<ListOrder>()
+
+        db.collection("canteen").document("order").collection("list")
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach { field ->
+                    listOrder.add(ListOrder(
+                        field["order"].toString(),
+                        field["studentId"].toString(),
+                        field["status"].toString(),
+                        field["total"].toString(),
+                        field["date"] as Timestamp,
+                        field.id
+                    ))
+                }
+                callback.returnList(listOrder)
+            }
+    }
+
+    fun getSpecificOrderItem(itemId: String, callback: ItemCallback) {
+        val listOrder = mutableListOf<ListOrder>()
+
+        db.collection("canteen").document("order").collection("list").document(itemId)
+            .get()
+            .addOnSuccessListener { document ->
+                listOrder.add(ListOrder(
+                    document["order"].toString(),
+                    document["studentId"].toString(),
+                    document["status"].toString(),
+                    document["total"].toString(),
+                    document["date"] as Timestamp,
+                    document.id
+                ))
+                callback.returnList(listOrder)
             }
     }
 }

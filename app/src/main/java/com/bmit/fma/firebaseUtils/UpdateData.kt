@@ -6,6 +6,7 @@ import com.bmit.fma.FixNotation
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -155,6 +156,8 @@ class UpdateData {
         val orderJson = Gson().toJson(orderList)
 //        val toList = Gson().fromJson(json, Array<ListMenu>::class.java)
         val data = hashMapOf(
+            "timestamp" to Timestamp.now(),
+            "studentId" to studentId,
             "order" to orderJson,
             "status" to "order confirmed",
             "total" to total
@@ -172,6 +175,37 @@ class UpdateData {
             }
             .addOnFailureListener {
                 Log.d(LOG, "Failed to submit order: $it")
+            }
+
+    }
+
+    fun updateOrderStatus(orderId: String, studentId: String, callback: ItemCallback) {
+        var orderStatus = ""
+        db.collection("canteen").document("order").collection("list").document(orderId)
+            .get()
+            .addOnSuccessListener { document ->
+                when (document["status"].toString()) {
+                    "order confirmed" -> orderStatus = "order processed"
+                    "order processed" -> orderStatus = "ready to pickup"
+                }
+                if (document["status"].toString() != "ready to pickup") {
+                    val data = hashMapOf(
+                        "status" to orderStatus
+                    )
+                    db.collection("canteen").document("order").collection("list").document(orderId)
+                        .set(data, SetOptions.merge())
+                        .addOnSuccessListener {
+                            db.collection("student").document(studentId).collection("order").document(orderId)
+                                .set(data, SetOptions.merge())
+                                .addOnSuccessListener {
+                                    callback.orderStatusUpdated(orderId, orderStatus)
+                                    Log.d(LOG, "updateOrderStatus: $orderStatus")
+                                }
+                        }
+                } else {
+                    callback.orderStatusUpdated(orderId, "")
+                }
+
             }
 
     }

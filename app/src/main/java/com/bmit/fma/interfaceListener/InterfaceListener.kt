@@ -13,4 +13,6 @@ interface InterfaceListener {
      * When user click delete button
      */
     fun onClickDelete(itemId: String){}
+
+    fun onSelectOrder(itemId: String) {}
 }

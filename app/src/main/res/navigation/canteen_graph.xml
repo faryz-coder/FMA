@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_canteenMenuFragment_to_canteenViewItemFragment"
             app:destination="@id/canteenViewItemFragment" />
+        <action
+            android:id="@+id/action_canteenMenuFragment_to_canteenOrderFragment"
+            app:destination="@id/canteenOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/canteenAddItemFragment"
@@ -36,4 +39,18 @@
         android:name="com.bmit.fma.canteen.CanteenItemInfoFragment"
         android:label="CanteenItemInfoFragment"
         tools:layout="@layout/fragment_canteen_item_info"/>
+    <fragment
+        android:id="@+id/canteenOrderFragment"
+        android:name="com.bmit.fma.canteen.CanteenOrderFragment"
+        android:label="CanteenOrderFragment"
+        tools:layout="@layout/fragment_view_order_history">
+        <action
+            android:id="@+id/action_canteenOrderFragment_to_canteenOrderDetailsFragment"
+            app:destination="@id/canteenOrderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/canteenOrderDetailsFragment"
+        android:name="com.bmit.fma.canteen.CanteenOrderDetailsFragment"
+        android:label="CanteenOrderDetailsFragment"
+        tools:layout="@layout/fragment_canteen_order_details"/>
 </navigation>
