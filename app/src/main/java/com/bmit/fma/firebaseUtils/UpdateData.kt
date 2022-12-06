@@ -9,6 +9,7 @@ import com.bmit.fma.student.ListMenu
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
@@ -16,6 +17,7 @@ import com.google.gson.Gson
 class UpdateData {
     private val db = Firebase.firestore
     private val storage = Firebase.storage
+    private val notificationUtil = NotificationUtil()
 
     fun updateStaffInfo(
         id: String,
@@ -198,6 +200,7 @@ class UpdateData {
                             db.collection("student").document(studentId).collection("order").document(orderId)
                                 .set(data, SetOptions.merge())
                                 .addOnSuccessListener {
+                                    getStudentTokenAndNotify(studentId, orderStatus)
                                     callback.orderStatusUpdated(orderId, orderStatus)
                                     Log.d(LOG, "updateOrderStatus: $orderStatus")
                                 }
@@ -208,6 +211,30 @@ class UpdateData {
 
             }
 
+    }
+
+    fun updateUserToken(token: String, studentId: String) {
+        val data = hashMapOf(
+            "token" to token
+        )
+        db.collection("Login").whereEqualTo("studentId", studentId)
+            .get()
+            .addOnSuccessListener { document ->
+                db.collection("Login").document(document.first().id)
+                    .set(data, SetOptions.merge())
+                    .addOnSuccessListener {
+                        Log.d(LOG, "user token updated : $studentId")
+                    }
+            }
+    }
+
+    private fun getStudentTokenAndNotify(studentId: String, orderStatus: String) {
+        db.collection("Login").whereEqualTo("studentId", studentId)
+            .get()
+            .addOnSuccessListener { document ->
+                val token = document.first().getField<String>("token").toString()
+                notificationUtil.notifyUser(token, orderStatus)
+            }
     }
 
     private fun uploadImage(itemId: String, imageUri: Uri?, callback: ItemCallback) {

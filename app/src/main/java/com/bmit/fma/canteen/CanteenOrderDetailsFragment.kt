@@ -65,6 +65,8 @@ class CanteenOrderDetailsFragment : Fragment(), ItemCallback {
 
         binding.orderStatus.text = orderSummary.first().status.uppercase(Locale.getDefault())
 
+        binding.orderChangeStatusBtn.isEnabled = !orderSummary.first().status.contains("ready to pickup")
+
         Log.d(LOG, "returnList: $orderSummary")
         orderSummaryAdapter.notifyDataSetChanged()
     }

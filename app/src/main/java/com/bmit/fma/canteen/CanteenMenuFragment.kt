@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bmit.fma.R
 import com.bmit.fma.databinding.FragmentCanteenMenuBinding
+import com.bmit.fma.firebaseUtils.NotificationUtil
 import com.bmit.fma.viewmodel.LoginViewModel
 
 class CanteenMenuFragment: Fragment() {
