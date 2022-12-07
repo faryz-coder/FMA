@@ -58,6 +58,8 @@ class StudentOrderReviewFragment: Fragment(), ItemCallback {
         binding.totalCalories.text = getString(R.string.total_calories_intake) + totalCal.toString() + " Cal"
         binding.totalPrice.text = getString(R.string.total) + totalPrice
         total = totalPrice
+
+        binding.btnPay.isEnabled = item.isNotEmpty()
     }
 
     override fun onItemUpdated() {

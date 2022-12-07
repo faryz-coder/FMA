@@ -60,7 +60,7 @@ class StudentActivity : AppCompatActivity() {
             // Log and toast
             val msg = "FCM Token: $token"
             Log.d(LOG, msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
     }
 
