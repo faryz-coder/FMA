@@ -53,6 +53,10 @@ class CanteenOrderFragment: Fragment(), InterfaceListener, ItemCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onSelectOrder(itemId: String) {
