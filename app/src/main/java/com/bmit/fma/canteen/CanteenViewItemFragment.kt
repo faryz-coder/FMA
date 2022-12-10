@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -18,6 +19,8 @@ import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
 import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
+import com.bmit.fma.utils.Common
+import com.google.android.material.card.MaterialCardView
 
 class CanteenViewItemFragment : Fragment(), ItemCallback, InterfaceListener {
 
@@ -91,10 +94,14 @@ class CanteenViewItemFragment : Fragment(), ItemCallback, InterfaceListener {
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
+        }
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
-        super.onItemClick(itemId, itemBox, listMenu)
+    override fun onItemClick(itemId: String, itemBox: MaterialCardView?, listMenu: ListMenu?) {
+        super.onItemClick(itemId, null, listMenu)
         val bundle = bundleOf("itemId" to itemId)
         findNavController().navigate(R.id.action_canteenViewItemFragment_to_canteenItemInfoFragment, bundle)
     }

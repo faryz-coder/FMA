@@ -10,10 +10,33 @@
         android:id="@+id/constraintLayout9"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/backBtn8"
+            style="?attr/floatingActionButtonSecondaryStyle"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:icon="@drawable/ic_baseline_arrow_back_ios_new_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logoutBtn2"
+            style="?attr/floatingActionButtonSecondaryStyle"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:icon="@drawable/ic_baseline_logout_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView14"
@@ -38,6 +61,7 @@
         android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:text="Order ID:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
 
@@ -48,7 +72,109 @@
         android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+    <ImageView
+        android:id="@+id/orderConfirmedImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/orderProcessedImg"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:srcCompat="@drawable/order_confirm" />
+
+    <ImageView
+        android:id="@+id/orderProcessedImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/orderReadyImg"
+        app:layout_constraintStart_toStartOf="@+id/orderConfirmedImg"
+        app:layout_constraintTop_toBottomOf="@+id/orderConfirmedImg"
+        app:srcCompat="@drawable/order_processed" />
+
+    <TextView
+        android:id="@+id/orderConfirmedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Order Confirmed"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderConfirmedImg"
+        app:layout_constraintStart_toEndOf="@+id/orderConfirmedImg"
+        app:layout_constraintTop_toTopOf="@+id/orderConfirmedImg"
+        app:layout_constraintVertical_bias="0.41000003" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Your order has been placed"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/orderConfirmedImg"
+        app:layout_constraintTop_toBottomOf="@+id/orderConfirmedText" />
+
+    <TextView
+        android:id="@+id/orderProcessedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Order Processed"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderProcessedImg"
+        app:layout_constraintStart_toEndOf="@+id/orderProcessedImg"
+        app:layout_constraintTop_toTopOf="@+id/orderProcessedImg"
+        app:layout_constraintVertical_bias="0.41000003" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your order is preparing"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/orderProcessedText"
+        app:layout_constraintTop_toBottomOf="@+id/orderProcessedText" />
+
+    <ImageView
+        android:id="@+id/orderReadyImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/orderProcessedImg"
+        app:layout_constraintTop_toBottomOf="@+id/orderProcessedImg"
+        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24" />
+
+    <TextView
+        android:id="@+id/orderReadyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Ready to Pickup"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderReadyImg"
+        app:layout_constraintStart_toEndOf="@+id/orderReadyImg"
+        app:layout_constraintTop_toTopOf="@+id/orderReadyImg"
+        app:layout_constraintVertical_bias="0.41000003" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your order is ready for pickup"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/orderReadyText"
+        app:layout_constraintTop_toBottomOf="@+id/orderReadyText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

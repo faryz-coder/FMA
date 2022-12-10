@@ -32,7 +32,7 @@ class HistoryItemAdapter(private val listHistory: MutableList<ListOrder>, val on
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history = listHistory[position]
-        holder.date.text = "Date: "+ history.date.toDate()
+        holder.date.text = "Date: "+ history.date
         holder.status.text = history.status
 
         val listOrder = mutableListOf<ListMenu>()
@@ -47,7 +47,7 @@ class HistoryItemAdapter(private val listHistory: MutableList<ListOrder>, val on
         }
 
         holder.itemBox.setOnClickListener {
-            onClickInterface.onItemClick(history.orderId, holder.itemBox)
+            onClickInterface.onItemClick(history.orderId, null)
         }
     }
 

@@ -6,84 +6,94 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/itemNo"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="1."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/orderImg"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
 
-    <TextView
-        android:id="@+id/orderName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Food Name"
-        app:layout_constraintStart_toStartOf="@+id/orderImg"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewElevatedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/orderImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/orderPrice"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/itemNo"
-        app:layout_constraintTop_toBottomOf="@+id/orderName"
-        tools:srcCompat="@tools:sample/avatars" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/orderCal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="000 Cal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/orderImg"
-        app:layout_constraintTop_toBottomOf="@+id/orderImg" />
+            <TextView
+                android:id="@+id/itemNo"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1."
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
-    <TextView
-        android:id="@+id/orderPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Rm 0.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/orderQuantity"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/orderImg"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+            <TextView
+                android:id="@+id/orderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Food Name"
+                app:layout_constraintStart_toEndOf="@+id/orderImg"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/orderQuantity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/orderTotalPrice"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/orderPrice"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+            <ImageView
+                android:id="@+id/orderImg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:minWidth="130dp"
+                android:minHeight="100dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/itemNo"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/orderTotalPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Rm 0.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/orderQuantity"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+            <TextView
+                android:id="@+id/orderCal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="000 Cal"
+                app:layout_constraintStart_toStartOf="@+id/orderPrice"
+                app:layout_constraintTop_toBottomOf="@+id/orderPrice" />
+
+            <TextView
+                android:id="@+id/orderPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Rm 0.00"
+                app:layout_constraintStart_toStartOf="@+id/orderName"
+                app:layout_constraintTop_toBottomOf="@+id/orderName" />
+
+            <TextView
+                android:id="@+id/orderQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="1"
+                app:layout_constraintStart_toEndOf="@+id/orderPrice"
+                app:layout_constraintTop_toTopOf="@+id/orderPrice" />
+
+            <TextView
+                android:id="@+id/orderTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="Rm 0.00"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

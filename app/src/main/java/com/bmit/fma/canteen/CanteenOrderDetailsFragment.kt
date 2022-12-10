@@ -16,6 +16,7 @@ import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
 import com.bmit.fma.student.ListOrder
 import com.bmit.fma.student.OrderSummaryAdapter
+import com.bmit.fma.utils.Common
 import com.google.gson.Gson
 import java.util.*
 
@@ -66,7 +67,7 @@ class CanteenOrderDetailsFragment : Fragment(), ItemCallback {
 
         binding.orderStatus.text = orderSummary.first().status.uppercase(Locale.getDefault())
 
-        binding.orderChangeStatusBtn.isEnabled = !orderSummary.first().status.contains("ready to pickup")
+        binding.orderChangeStatusBtn.isEnabled = !orderSummary.first().status.contains("ready to pickup") && !orderSummary.first().status.contains("canceled")
 
         Log.d(LOG, "returnList: $orderSummary")
         orderSummaryAdapter.notifyDataSetChanged()
@@ -81,6 +82,11 @@ class CanteenOrderDetailsFragment : Fragment(), ItemCallback {
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
     }
 

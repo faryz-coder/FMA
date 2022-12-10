@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,8 @@ import com.bmit.fma.dialogs.AlertDialogCustom
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.interfaceListener.InterfaceListener
 import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.utils.Common
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
 
 class StudentOrderMenuFragment : Fragment(), InterfaceListener, ItemCallback {
@@ -102,6 +105,15 @@ class StudentOrderMenuFragment : Fragment(), InterfaceListener, ItemCallback {
                 Snackbar.make(requireView(), "Please place an order", Snackbar.LENGTH_SHORT).show()
             }
         }
+
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
+        }
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {
@@ -109,12 +121,12 @@ class StudentOrderMenuFragment : Fragment(), InterfaceListener, ItemCallback {
         _binding = null
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
-        Toast.makeText(requireContext(), "click: $itemId", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(itemId: String, itemBox: MaterialCardView?, listMenu: ListMenu?) {
+//        Toast.makeText(requireContext(), "click: $itemId", Toast.LENGTH_SHORT).show()
         if (listMenu != null) {
             alertDialog.showQuantitySelectionDialog(
                 itemId = itemId,
-                itemBox = itemBox,
+                itemBox = itemBox!!,
                 listMenu = listMenu,
                 this
             )

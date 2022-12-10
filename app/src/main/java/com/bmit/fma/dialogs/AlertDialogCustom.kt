@@ -2,17 +2,20 @@ package com.bmit.fma.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.Log.d
+import android.util.TypedValue
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.bmit.fma.R
 import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
 import com.bmit.fma.student.SessionViewModel
-import com.bmit.fma.student.StudentOrderMenuFragment
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
 
 class AlertDialogCustom {
 
@@ -26,7 +29,7 @@ class AlertDialogCustom {
 
     fun showQuantitySelectionDialog(
         itemId: String,
-        itemBox: ConstraintLayout,
+        itemBox: MaterialCardView,
         listMenu: ListMenu,
         callback: ItemCallback
     ) {
@@ -48,12 +51,12 @@ class AlertDialogCustom {
                             listMenu
                         )
                         d("sessionViewModel", "${sessionViewModel.getItemOrder()}")
-                        itemBox.setBackgroundColor(Color.GRAY)
+                        itemBox.setCardBackgroundColor(MaterialColors.getColor(itemBox, com.google.android.material.R.attr.colorSurfaceVariant))
                         callback.onItemUpdated()
                     } else {
                         sessionViewModel.removeItem(itemId)
                         d("sessionViewModel", "${sessionViewModel.getItemOrder()}")
-                        itemBox.setBackgroundColor(Color.WHITE)
+                        itemBox.setCardBackgroundColor(MaterialColors.getColor(itemBox, com.google.android.material.R.attr.colorSurface))
                         callback.onItemUpdated()
 
                     }
@@ -68,7 +71,7 @@ class AlertDialogCustom {
 
         } ?: throw java.lang.IllegalStateException("Activity cannot be null")
         dialog.show()
-        itemQuantity = dialog.findViewById<TextView>(R.id.itemQuantity)
+        itemQuantity = dialog.findViewById(R.id.itemQuantity)
         dialog.findViewById<Button>(R.id.quantityAdd).setOnClickListener {
             itemQuantity.text = (itemQuantity.text.toString().toInt() + 1).toString()
         }

@@ -34,7 +34,7 @@ class OrderItemAdapter(private val listOrder: MutableList<ListOrder>, private va
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history = listOrder[position]
-        holder.date.text = "Date: "+ history.date.toDate()
+        holder.date.text = "Date: "+ history.date
         holder.status.text = history.status
         holder.deleteBtn.isVisible = false
 

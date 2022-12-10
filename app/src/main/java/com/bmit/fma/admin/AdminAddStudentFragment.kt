@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bmit.fma.databinding.FragmentAdminAddStudentBinding
 import com.bmit.fma.firebaseUtils.RegisterUser
+import com.bmit.fma.utils.Common
 
 class AdminAddStudentFragment : Fragment() {
 
@@ -38,8 +39,12 @@ class AdminAddStudentFragment : Fragment() {
             )
         }
 
-        binding.backBtn5.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
     }
 

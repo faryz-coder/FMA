@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.bmit.fma.R
 import com.bmit.fma.databinding.FragmentCanteenMenuBinding
 import com.bmit.fma.firebaseUtils.NotificationUtil
+import com.bmit.fma.utils.Common
 import com.bmit.fma.viewmodel.LoginViewModel
 
 class CanteenMenuFragment: Fragment() {
@@ -39,6 +40,10 @@ class CanteenMenuFragment: Fragment() {
         }
         binding.viewNewOrderBtn.setOnClickListener {
             findNavController().navigate(R.id.action_canteenMenuFragment_to_canteenOrderFragment)
+        }
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
     }
 

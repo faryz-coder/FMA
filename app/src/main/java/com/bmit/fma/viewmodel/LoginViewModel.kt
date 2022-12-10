@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.lifecycle.ViewModel
 
 class LoginViewModel: ViewModel() {
-    var email : String = "canteen@gmail.com"
-    var type : String = "canteen"
+//    var email : String = "canteen@gmail.com"
+//    var type : String = "canteen"
+//    var studentId : String = "123"
+    var email : String = ""
+    var type : String = "student"
     var studentId : String = "123"
 
     fun setStudent(intent: Intent) {

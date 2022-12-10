@@ -1,12 +1,10 @@
 package com.bmit.fma.student
 
-import com.google.firebase.Timestamp
-
-data class ListOrder (
+data class ListOrder(
     val order: String,
     val studentId: String,
     val status: String,
     val total: String,
-    val date: Timestamp,
+    val date: String,
     val orderId: String
 )

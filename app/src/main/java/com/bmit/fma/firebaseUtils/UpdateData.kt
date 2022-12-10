@@ -6,7 +6,6 @@ import com.bmit.fma.FixNotation
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.getField
@@ -153,12 +152,13 @@ class UpdateData {
         orderList: MutableList<ListMenu>,
         total: Double?,
         studentId: String,
+        orderDate: String,
         callback: ItemCallback
     ) {
         val orderJson = Gson().toJson(orderList)
 //        val toList = Gson().fromJson(json, Array<ListMenu>::class.java)
         val data = hashMapOf(
-            "timestamp" to Timestamp.now(),
+            "date" to orderDate,
             "studentId" to studentId,
             "order" to orderJson,
             "status" to "order confirmed",

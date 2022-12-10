@@ -3,15 +3,14 @@ package com.bmit.fma.firebaseUtils
 import android.util.Log
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.admin.UserList
-import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.canteen.ItemList
 import com.bmit.fma.dialogs.ItemOrder
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
 import com.bmit.fma.student.ListOrder
-import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Query.Direction
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.Query.Direction
 
 class GetData {
 
@@ -155,11 +154,45 @@ class GetData {
                     if (isExist.isNotEmpty()) {
                         quantity = isExist.first().quantity
                     }
-
-                    when (type) {
-                        "Food" -> foodMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
-                        "Drink" -> drinkMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
-                        "Snack" -> snackMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
+                    if(!status.contains("disabled")) {
+                        when (type) {
+                            "Food" -> foodMenu.add(
+                                ListMenu(
+                                    name,
+                                    imageURL,
+                                    price,
+                                    calories,
+                                    status,
+                                    type,
+                                    itemId,
+                                    quantity
+                                )
+                            )
+                            "Drink" -> drinkMenu.add(
+                                ListMenu(
+                                    name,
+                                    imageURL,
+                                    price,
+                                    calories,
+                                    status,
+                                    type,
+                                    itemId,
+                                    quantity
+                                )
+                            )
+                            "Snack" -> snackMenu.add(
+                                ListMenu(
+                                    name,
+                                    imageURL,
+                                    price,
+                                    calories,
+                                    status,
+                                    type,
+                                    itemId,
+                                    quantity
+                                )
+                            )
+                        }
                     }
                 }
                 callback.returnMenu(foodMenu, drinkMenu, snackMenu)
@@ -209,7 +242,7 @@ class GetData {
                         field["studentId"].toString(),
                         field["status"].toString(),
                         field["total"].toString(),
-                        field["date"] as Timestamp,
+                        field["date"].toString(),
                         field.id
                     ))
                 }
@@ -229,7 +262,7 @@ class GetData {
                         field["studentId"].toString(),
                         field["status"].toString(),
                         field["total"].toString(),
-                        field["date"] as Timestamp,
+                        field["date"].toString(),
                         field.id
                     ))
                 }
@@ -248,10 +281,11 @@ class GetData {
                     document["studentId"].toString(),
                     document["status"].toString(),
                     document["total"].toString(),
-                    document["date"] as Timestamp,
+                    document["date"].toString(),
                     document.id
                 ))
                 callback.returnList(listOrder)
             }
     }
+
 }

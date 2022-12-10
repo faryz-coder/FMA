@@ -18,6 +18,7 @@ import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.HistoryItemAdapter
 import com.bmit.fma.student.ListMenu
 import com.bmit.fma.student.ListOrder
+import com.bmit.fma.utils.Common
 
 class CanteenOrderFragment: Fragment(), InterfaceListener, ItemCallback{
     private var _binding: FragmentViewOrderHistoryBinding? = null
@@ -56,6 +57,10 @@ class CanteenOrderFragment: Fragment(), InterfaceListener, ItemCallback{
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
     }
 

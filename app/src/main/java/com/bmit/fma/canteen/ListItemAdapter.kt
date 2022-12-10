@@ -62,7 +62,7 @@ class ListItemAdapter(private val listItem: MutableList<ItemList>, private val o
         }
 
         holder.itemBox.setOnClickListener {
-            onClickInterface.onItemClick(item.id, holder.itemBox)
+            onClickInterface.onItemClick(item.id, null)
         }
 
     }

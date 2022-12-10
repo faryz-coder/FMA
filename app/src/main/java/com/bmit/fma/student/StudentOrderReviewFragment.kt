@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.R
 import com.bmit.fma.databinding.FragmentStudentOrderReviewBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.utils.Common
 import com.bmit.fma.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -38,7 +41,7 @@ class StudentOrderReviewFragment: Fragment(), ItemCallback {
         orderListAdapter = OrderListAdapter(orderList, this@StudentOrderReviewFragment)
         loginViewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
 
-        d("StudentViewOrderFragment", "${sessionViewModel.getItemOrder()}" )
+        d(LOG, "${sessionViewModel.getItemOrder()}" )
 
         binding.listOrderRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@StudentOrderReviewFragment.context)
@@ -57,6 +60,7 @@ class StudentOrderReviewFragment: Fragment(), ItemCallback {
         orderListAdapter.notifyDataSetChanged()
         binding.totalCalories.text = getString(R.string.total_calories_intake) + totalCal.toString() + " Cal"
         binding.totalPrice.text = getString(R.string.total) + totalPrice
+        binding.orderDate.text = getString(R.string.date) + sessionViewModel.getDate()
         total = totalPrice
 
         binding.btnPay.isEnabled = item.isNotEmpty()
@@ -65,6 +69,7 @@ class StudentOrderReviewFragment: Fragment(), ItemCallback {
     override fun onItemUpdated() {
         super.onItemUpdated()
         Snackbar.make(requireView(), "Payment Confirmed", Snackbar.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_studentOrderReviewFragment_to_studentOrderConfirmed)
         sessionViewModel.clear()
     }
 
@@ -73,7 +78,15 @@ class StudentOrderReviewFragment: Fragment(), ItemCallback {
 
         binding.btnPay.setOnClickListener {
 
-            updateData.confirmPayment(orderList, total, loginViewModel.studentId, this)
+            updateData.confirmPayment(orderList, total, loginViewModel.studentId, sessionViewModel.getDate(), this)
+        }
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
         }
 
     }

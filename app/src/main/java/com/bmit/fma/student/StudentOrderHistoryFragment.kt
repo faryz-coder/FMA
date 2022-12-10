@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -18,7 +19,9 @@ import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
 import com.bmit.fma.interfaceListener.ItemCallback
+import com.bmit.fma.utils.Common
 import com.bmit.fma.viewmodel.LoginViewModel
+import com.google.android.material.card.MaterialCardView
 
 class StudentOrderHistoryFragment: Fragment(), InterfaceListener, ItemCallback {
     private var _binding: FragmentViewOrderHistoryBinding? = null
@@ -48,11 +51,20 @@ class StudentOrderHistoryFragment: Fragment(), InterfaceListener, ItemCallback {
 
         getData.getOrderedHistory(this, loginViewModel.studentId)
 
+        binding.title.text = "History"
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+        }
     }
 
     override fun onClickDelete(itemId: String) {
@@ -84,8 +96,8 @@ class StudentOrderHistoryFragment: Fragment(), InterfaceListener, ItemCallback {
 
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
-        super.onItemClick(itemId, itemBox, listMenu)
+    override fun onItemClick(itemId: String, itemBox: MaterialCardView?, listMenu: ListMenu?) {
+        super.onItemClick(itemId, null, listMenu)
         val bundle = bundleOf("id" to itemId)
         findNavController().navigate(R.id.action_studentOrderHistoryFragment_to_studentOrderTrackingFragment, bundle)
     }
