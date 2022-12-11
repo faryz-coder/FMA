@@ -11,6 +11,7 @@ import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.FixNotation.STAFF
 import com.bmit.fma.databinding.FragmentAdminAddStaffBinding
 import com.bmit.fma.firebaseUtils.RegisterUser
+import com.bmit.fma.utils.Common
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -45,6 +46,11 @@ class AdminAddStaffFragment : Fragment() {
                 binding.inputPhoneNumber.editText?.text.toString(),
                 binding.inputStaffPassword.editText?.text.toString()
             )
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
 
         binding.backBtn.setOnClickListener {

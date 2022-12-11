@@ -5,7 +5,7 @@ import com.bmit.fma.dialogs.ItemOrder
 
 class SessionViewModel : ViewModel() {
     private val itemOrder = mutableListOf<ItemOrder>()
-
+    private var selectedDate = ""
     /**
      * Add order
      */
@@ -49,5 +49,16 @@ class SessionViewModel : ViewModel() {
      */
     fun isOrderEmpty(): Boolean {
         return itemOrder.isEmpty()
+    }
+
+    /**
+     * Set Order Date
+     */
+    fun setDate(date: String) {
+        selectedDate = date
+    }
+
+    fun getDate(): String {
+        return selectedDate
     }
 }

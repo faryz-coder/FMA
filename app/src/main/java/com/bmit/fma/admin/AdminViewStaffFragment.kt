@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -18,6 +19,8 @@ import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
 import com.bmit.fma.interfaceListener.InterfaceListener
 import com.bmit.fma.student.ListMenu
+import com.bmit.fma.utils.Common
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -65,8 +68,12 @@ class AdminViewStaffFragment : Fragment(), ItemCallback, InterfaceListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backBtn4.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
     }
 
@@ -75,7 +82,7 @@ class AdminViewStaffFragment : Fragment(), ItemCallback, InterfaceListener {
         _binding = null
     }
 
-    override fun onItemClick(itemId: String, itemBox: ConstraintLayout, listMenu: ListMenu?) {
+    override fun onItemClick(itemId: String, itemBox: MaterialCardView?, listMenu: ListMenu?) {
         val bundle = bundleOf("id" to itemId)
         findNavController().navigate(R.id.action_adminViewStaffFragment_to_adminStaffInfo, bundle)
     }

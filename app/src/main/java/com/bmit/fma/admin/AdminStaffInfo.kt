@@ -10,6 +10,7 @@ import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.databinding.FragmentAdminStaffInfoBinding
 import com.bmit.fma.firebaseUtils.GetData
 import com.bmit.fma.firebaseUtils.UpdateData
+import com.bmit.fma.utils.Common
 import com.bmit.fma.utils.Validation
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
@@ -80,8 +81,13 @@ class AdminStaffInfo : Fragment(), ItemCallback {
             }
         }
 
-        binding.backBtn2.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
     }
 

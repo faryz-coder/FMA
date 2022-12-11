@@ -74,4 +74,7 @@
     <string name="update">Update</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+
+    <string name="notification_body">"Your order is "</string>
+    <string name="date">Date :</string>
 </resources>

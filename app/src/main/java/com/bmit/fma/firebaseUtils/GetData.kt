@@ -3,13 +3,14 @@ package com.bmit.fma.firebaseUtils
 import android.util.Log
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.admin.UserList
-import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.canteen.ItemList
 import com.bmit.fma.dialogs.ItemOrder
+import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
+import com.bmit.fma.student.ListOrder
+import com.google.firebase.firestore.Query.Direction
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.Query.Direction
 
 class GetData {
 
@@ -153,11 +154,45 @@ class GetData {
                     if (isExist.isNotEmpty()) {
                         quantity = isExist.first().quantity
                     }
-
-                    when (type) {
-                        "Food" -> foodMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
-                        "Drink" -> drinkMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
-                        "Snack" -> snackMenu.add(ListMenu(name, imageURL, price, calories, status, type, itemId, quantity))
+                    if(!status.contains("disabled")) {
+                        when (type) {
+                            "Food" -> foodMenu.add(
+                                ListMenu(
+                                    name,
+                                    imageURL,
+                                    price,
+                                    calories,
+                                    status,
+                                    type,
+                                    itemId,
+                                    quantity
+                                )
+                            )
+                            "Drink" -> drinkMenu.add(
+                                ListMenu(
+                                    name,
+                                    imageURL,
+                                    price,
+                                    calories,
+                                    status,
+                                    type,
+                                    itemId,
+                                    quantity
+                                )
+                            )
+                            "Snack" -> snackMenu.add(
+                                ListMenu(
+                                    name,
+                                    imageURL,
+                                    price,
+                                    calories,
+                                    status,
+                                    type,
+                                    itemId,
+                                    quantity
+                                )
+                            )
+                        }
                     }
                 }
                 callback.returnMenu(foodMenu, drinkMenu, snackMenu)
@@ -194,4 +229,63 @@ class GetData {
                 callback.returnOrderItemList(orderList, totalPrice, totalCal)
             }
     }
+
+    fun getOrderedHistory(callback: ItemCallback, studentId: String) {
+        val listHistory = mutableListOf<ListOrder>()
+
+        db.collection("student").document(studentId).collection("order")
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach { field ->
+                    listHistory.add(ListOrder(
+                        field["order"].toString(),
+                        field["studentId"].toString(),
+                        field["status"].toString(),
+                        field["total"].toString(),
+                        field["date"].toString(),
+                        field.id
+                    ))
+                }
+                callback.returnList(listHistory)
+            }
+    }
+
+    fun getOrderedList(callback: ItemCallback) {
+        val listOrder = mutableListOf<ListOrder>()
+
+        db.collection("canteen").document("order").collection("list")
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach { field ->
+                    listOrder.add(ListOrder(
+                        field["order"].toString(),
+                        field["studentId"].toString(),
+                        field["status"].toString(),
+                        field["total"].toString(),
+                        field["date"].toString(),
+                        field.id
+                    ))
+                }
+                callback.returnList(listOrder)
+            }
+    }
+
+    fun getSpecificOrderItem(itemId: String, callback: ItemCallback) {
+        val listOrder = mutableListOf<ListOrder>()
+
+        db.collection("canteen").document("order").collection("list").document(itemId)
+            .get()
+            .addOnSuccessListener { document ->
+                listOrder.add(ListOrder(
+                    document["order"].toString(),
+                    document["studentId"].toString(),
+                    document["status"].toString(),
+                    document["total"].toString(),
+                    document["date"].toString(),
+                    document.id
+                ))
+                callback.returnList(listOrder)
+            }
+    }
+
 }

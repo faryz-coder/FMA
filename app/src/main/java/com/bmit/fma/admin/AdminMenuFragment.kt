@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bmit.fma.R
 import com.bmit.fma.databinding.FragmentAdminMenuBinding
+import com.bmit.fma.utils.Common
 
 class AdminMenuFragment : Fragment(), View.OnClickListener {
 
@@ -32,6 +33,10 @@ class AdminMenuFragment : Fragment(), View.OnClickListener {
         binding.addCanteenBtn.setOnClickListener(this)
         binding.viewStudentBtn.setOnClickListener(this)
         binding.viewCanteenBtn.setOnClickListener(this)
+        binding.logoutBtn3.setOnClickListener {
+            Common().logout(requireActivity())
+
+        }
     }
 
     override fun onDestroyView() {

@@ -87,6 +87,8 @@ class CanteenItemInfoFragment: Fragment(), ItemCallback, View.OnClickListener {
             findNavController().popBackStack()
         }
 
+
+
     }
 
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.bmit.fma.FixNotation.LOG
 import com.bmit.fma.databinding.FragmentCanteenAddItemBinding
 import com.bmit.fma.firebaseUtils.UploadData
+import com.bmit.fma.utils.Common
 import com.bmit.fma.utils.Validation
 import com.bmit.fma.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -77,6 +78,11 @@ class CanteenAddItemFragment : Fragment(), View.OnClickListener {
         // back btn
         binding.backBtn7.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            Common().logout(requireActivity())
+
         }
 
     }

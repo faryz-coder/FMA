@@ -33,11 +33,29 @@
         android:id="@+id/studentOrderReviewFragment"
         android:name="com.bmit.fma.student.StudentOrderReviewFragment"
         android:label="StudentOrderReviewFragment"
-        tools:layout="@layout/fragment_student_order_review" />
+        tools:layout="@layout/fragment_student_order_review" >
+        <action
+            android:id="@+id/action_studentOrderReviewFragment_to_studentOrderConfirmed"
+            app:destination="@id/studentOrderConfirmed" />
+    </fragment>
     <fragment
         android:id="@+id/studentOrderHistoryFragment"
         android:name="com.bmit.fma.student.StudentOrderHistoryFragment"
         android:label="StudentOrderHistoryFragment"
-        tools:layout="@layout/fragment_student_order_history"/>
+        tools:layout="@layout/fragment_view_order_history">
+        <action
+            android:id="@+id/action_studentOrderHistoryFragment_to_studentOrderTrackingFragment"
+            app:destination="@id/studentOrderTrackingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentOrderTrackingFragment"
+        android:name="com.bmit.fma.student.StudentOrderTrackingFragment"
+        android:label="StudentOrderTrackingFragment"
+        tools:layout="@layout/fragment_student_order_tracking"/>
+    <fragment
+        android:id="@+id/studentOrderConfirmed"
+        android:name="com.bmit.fma.student.StudentOrderConfirmed"
+        android:label="StudentOrderConfirmed"
+        tools:layout="@layout/fragment_order_confirmed"/>
 
 </navigation>

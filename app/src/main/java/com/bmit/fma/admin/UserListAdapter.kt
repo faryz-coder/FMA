@@ -32,7 +32,7 @@ class UserListAdapter(private val listStaff: MutableList<UserList>, var userList
         }
 
         holder.box.setOnClickListener {
-            userListener.onItemClick(list.id, holder.box)
+            userListener.onItemClick(list.id)
         }
 
         holder.delete.setOnClickListener {

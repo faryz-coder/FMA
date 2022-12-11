@@ -34,7 +34,7 @@ class OrderListAdapter(private val orderList: MutableList<ListMenu>, studentOrde
         holder.orderName.text = list.name
         holder.orderCal.text = list.calories+" Cal"
         holder.orderPrice.text = list.price
-        holder.orderQuantity.text = list.quantity
+        holder.orderQuantity.text = list.quantity +"x"
         holder.orderTotalPrice.text = "RM "+(list.price.toDouble() * list.quantity.toInt()).toString()
 
         val handler = Handler(Looper.getMainLooper())

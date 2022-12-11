@@ -44,4 +44,8 @@ interface ItemCallback {
     fun returnOrderItemList(item: Collection<*>, totalPrice: Double, totalCal: Int) {
 
     }
+
+    fun orderStatusUpdated(orderId: String, status: String) {
+
+    }
 }

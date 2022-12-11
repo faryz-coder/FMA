@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bmit.fma.R
 import android.os.Handler
 import android.os.Looper
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bmit.fma.interfaceListener.InterfaceListener
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
 import java.util.concurrent.Executors
 
 class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interfaceListener: InterfaceListener) : RecyclerView.Adapter<MenuListAdapter.ViewHolder>() {
@@ -20,7 +23,7 @@ class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interface
         val foodName : TextView = itemView.findViewById(R.id.itemName)
         val price : TextView = itemView.findViewById(R.id.itemPrice)
         val itemImage : ImageView = itemView.findViewById(R.id.itemImage)
-        val itemBox : ConstraintLayout = itemView.findViewById(R.id.itemLayout)
+        val itemBox : MaterialCardView = itemView.findViewById(R.id.itemLayout)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,7 +59,7 @@ class MenuListAdapter(private val menuList: MutableList<ListMenu>, var interface
         }
 
         if (listMenu.quantity.toInt() > 0)
-            holder.itemBox.setBackgroundColor(Color.GRAY)
+            holder.itemBox.setCardBackgroundColor(MaterialColors.getColor( holder.itemBox, com.google.android.material.R.attr.colorSurfaceVariant))
     }
 
     override fun getItemCount(): Int {

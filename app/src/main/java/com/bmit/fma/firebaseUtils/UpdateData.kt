@@ -1,5 +1,6 @@
 package com.bmit.fma.firebaseUtils
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
 import com.bmit.fma.FixNotation
@@ -8,6 +9,7 @@ import com.bmit.fma.interfaceListener.ItemCallback
 import com.bmit.fma.student.ListMenu
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
@@ -15,6 +17,7 @@ import com.google.gson.Gson
 class UpdateData {
     private val db = Firebase.firestore
     private val storage = Firebase.storage
+    private val notificationUtil = NotificationUtil()
 
     fun updateStaffInfo(
         id: String,
@@ -62,6 +65,23 @@ class UpdateData {
             .addOnFailureListener {
                 callback.removedFailed()
                 Log.d(LOG, "Failed to delete item")
+            }
+    }
+
+    fun removeOrder(id: String, studentId: String, callback: ItemCallback) {
+        val data = hashMapOf(
+            "status" to "canceled"
+        )
+        db.collection("student").document(studentId).collection("order").document(id)
+            .set(data, SetOptions.merge())
+            .addOnSuccessListener {
+                // delete from canteee
+                db.collection("canteen").document("order").collection("list").document(id)
+                    .set(data, SetOptions.merge())
+                    .addOnSuccessListener {
+                        // delete success
+                        callback.itemRemoved(id)
+                    }
             }
     }
 
@@ -133,11 +153,14 @@ class UpdateData {
         orderList: MutableList<ListMenu>,
         total: Double?,
         studentId: String,
+        orderDate: String,
         callback: ItemCallback
     ) {
         val orderJson = Gson().toJson(orderList)
 //        val toList = Gson().fromJson(json, Array<ListMenu>::class.java)
         val data = hashMapOf(
+            "date" to orderDate,
+            "studentId" to studentId,
             "order" to orderJson,
             "status" to "order confirmed",
             "total" to total
@@ -157,6 +180,71 @@ class UpdateData {
                 Log.d(LOG, "Failed to submit order: $it")
             }
 
+    }
+
+    fun updateOrderStatus(
+        orderId: String,
+        studentId: String,
+        callback: ItemCallback,
+        requireContext: Context
+    ) {
+        var orderStatus = ""
+        db.collection("canteen").document("order").collection("list").document(orderId)
+            .get()
+            .addOnSuccessListener { document ->
+                when (document["status"].toString()) {
+                    "order confirmed" -> orderStatus = "order processed"
+                    "order processed" -> orderStatus = "ready to pickup"
+                }
+                if (document["status"].toString() != "ready to pickup") {
+                    val data = hashMapOf(
+                        "status" to orderStatus
+                    )
+                    db.collection("canteen").document("order").collection("list").document(orderId)
+                        .set(data, SetOptions.merge())
+                        .addOnSuccessListener {
+                            db.collection("student").document(studentId).collection("order").document(orderId)
+                                .set(data, SetOptions.merge())
+                                .addOnSuccessListener {
+                                    getStudentTokenAndNotify(studentId, orderStatus, requireContext)
+                                    callback.orderStatusUpdated(orderId, orderStatus)
+                                    Log.d(LOG, "updateOrderStatus: $orderStatus")
+                                }
+                        }
+                } else {
+                    callback.orderStatusUpdated(orderId, "")
+                }
+
+            }
+
+    }
+
+    fun updateUserToken(token: String, studentId: String) {
+        val data = hashMapOf(
+            "token" to token
+        )
+        db.collection("Login").whereEqualTo("studentId", studentId)
+            .get()
+            .addOnSuccessListener { document ->
+                db.collection("Login").document(document.first().id)
+                    .set(data, SetOptions.merge())
+                    .addOnSuccessListener {
+                        Log.d(LOG, "user token updated : $studentId")
+                    }
+            }
+    }
+
+    private fun getStudentTokenAndNotify(
+        studentId: String,
+        orderStatus: String,
+        requireContext: Context
+    ) {
+        db.collection("Login").whereEqualTo("studentId", studentId)
+            .get()
+            .addOnSuccessListener { document ->
+                val token = document.first().getField<String>("token").toString()
+                notificationUtil.notifyUser(token, orderStatus, requireContext)
+            }
     }
 
     private fun uploadImage(itemId: String, imageUri: Uri?, callback: ItemCallback) {
