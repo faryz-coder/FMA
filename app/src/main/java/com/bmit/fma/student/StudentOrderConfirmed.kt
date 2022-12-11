@@ -26,7 +26,7 @@ class StudentOrderConfirmed : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.clickLayout.setOnClickListener {
-            findNavController().popBackStack(R.id.studentMenuFragment, true)
+            findNavController().popBackStack(R.id.studentMenuFragment, false)
         }
     }
 

@@ -77,7 +77,7 @@ class CanteenOrderDetailsFragment : Fragment(), ItemCallback {
         super.onViewCreated(view, savedInstanceState)
 
         binding.orderChangeStatusBtn.setOnClickListener {
-            updateData.updateOrderStatus(orderId, studentId, this)
+            updateData.updateOrderStatus(orderId, studentId, this, requireContext())
         }
 
         binding.backBtn.setOnClickListener {

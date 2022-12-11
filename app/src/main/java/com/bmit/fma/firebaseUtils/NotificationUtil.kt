@@ -1,5 +1,6 @@
 package com.bmit.fma.firebaseUtils
 
+import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import com.bmit.fma.FixNotation.LOG
@@ -15,8 +16,8 @@ import kotlinx.coroutines.launch
 
 class NotificationUtil {
 
-    fun notifyUser(token: String, orderStatus: String) {
-        sendNotification(token, orderStatus)
+    fun notifyUser(token: String, orderStatus: String, requireContext: Context) {
+        sendNotification(token, orderStatus, requireContext)
     }
 
     fun updateToken(token: String, studentId: String) {
@@ -24,9 +25,10 @@ class NotificationUtil {
         updateData.updateUserToken(token, studentId)
     }
 
-    private fun sendNotification(token: String, orderStatus: String) = CoroutineScope(Dispatchers.IO).launch {
-        val title: String = Resources.getSystem().getString(R.string.app_name)
-        val body = Resources.getSystem().getString(R.string.notification_body) + orderStatus
+    private fun sendNotification(token: String, orderStatus: String, requireContext: Context) = CoroutineScope(Dispatchers.IO).launch {
+        val title: String = requireContext.getString(R.string.app_name)
+
+        val body = requireContext.getString(R.string.notification_body) + orderStatus
         try {
             val tok = "fFx3SGFeS3ynuyewGYt6t1:APA91bFSAcRjHUrMSDgmi86IKNtPNgcJ_nGkQiLrcvJZyJdwj5MBQgLwiisxUzTvyD4J_u8VdLgwjAX95PFXIUFmh_dtNpCREvpApW4CptxQeVyd0NaOWWz2IZAhgdbBgMLIcESKlZHx"
             val msg = Message(token, Notification(title,body), DataSet("",""))

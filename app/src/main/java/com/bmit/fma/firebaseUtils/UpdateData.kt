@@ -1,5 +1,6 @@
 package com.bmit.fma.firebaseUtils
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
 import com.bmit.fma.FixNotation
@@ -181,7 +182,12 @@ class UpdateData {
 
     }
 
-    fun updateOrderStatus(orderId: String, studentId: String, callback: ItemCallback) {
+    fun updateOrderStatus(
+        orderId: String,
+        studentId: String,
+        callback: ItemCallback,
+        requireContext: Context
+    ) {
         var orderStatus = ""
         db.collection("canteen").document("order").collection("list").document(orderId)
             .get()
@@ -200,7 +206,7 @@ class UpdateData {
                             db.collection("student").document(studentId).collection("order").document(orderId)
                                 .set(data, SetOptions.merge())
                                 .addOnSuccessListener {
-                                    getStudentTokenAndNotify(studentId, orderStatus)
+                                    getStudentTokenAndNotify(studentId, orderStatus, requireContext)
                                     callback.orderStatusUpdated(orderId, orderStatus)
                                     Log.d(LOG, "updateOrderStatus: $orderStatus")
                                 }
@@ -228,12 +234,16 @@ class UpdateData {
             }
     }
 
-    private fun getStudentTokenAndNotify(studentId: String, orderStatus: String) {
+    private fun getStudentTokenAndNotify(
+        studentId: String,
+        orderStatus: String,
+        requireContext: Context
+    ) {
         db.collection("Login").whereEqualTo("studentId", studentId)
             .get()
             .addOnSuccessListener { document ->
                 val token = document.first().getField<String>("token").toString()
-                notificationUtil.notifyUser(token, orderStatus)
+                notificationUtil.notifyUser(token, orderStatus, requireContext)
             }
     }
 

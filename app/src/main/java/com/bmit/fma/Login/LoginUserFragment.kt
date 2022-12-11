@@ -33,7 +33,8 @@ class LoginUserFragment: Fragment(), LoginCallback {
 
         when (type) {
             "student" -> {
-                binding.IdTitle.text = "STUDENT ID"
+                binding.emailTitle.text = "STUDENT ID"
+                binding.IdTitle.text = "PASSWORD"
                 binding.loginBackground.setBackgroundResource(R.drawable.student_login)
             }
             "canteen" -> {
